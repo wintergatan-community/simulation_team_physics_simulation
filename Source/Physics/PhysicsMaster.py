@@ -21,7 +21,7 @@ agrav=np.asarray([0,-9.81*1000,0]) #NOTE: LENGTH UNIT IS MM!!!!
 # 1 is explicit central finite difference via newmark-beta
 updateScheme=1
 
-#A function to perform collision detection between marbles.
+#A function to perform marble-to-marble collision detection
 def MarbleCollision (marbleSM):
     nMarbles=marbleSM.shape[1]
     forceArray=np.zeros((3,nMarbles))
