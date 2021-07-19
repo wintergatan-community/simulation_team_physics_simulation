@@ -12,14 +12,17 @@ import numpy as np
 #Units:  [g/mm^3 , MPa            , mm/mm        ]
 #Materials: Stainless, Testing material (soft/elastic)
 materialInfo = np.asarray([[7.81,205000,0.30],\
-                           [7.81,205,0.30]])
+                           [7.81,2050,0.30]])
 
 
 agrav=np.asarray([0,-9.81*1000,0]) #NOTE: LENGTH UNIT IS MM!!!!
 
 # 0 is forward finite difference for velocity, central finite difference for position
 # 1 is explicit central finite difference via newmark-beta
-updateScheme=1
+updateScheme=2
+epsilon=0.000001   #The error for radius-normalized position change in predictor-corrector
+maxIters=100
+
 
 #A function to perform marble-to-marble collision detection
 def MarbleCollision (marbleSM):
@@ -90,6 +93,21 @@ def PhysicsCalc (marbleInputSM,dT):
         xOutput[:,:]=xInput+vInput*dT+(dT*dT)/2*aInitial
         aFinal=(MarbleCollision(marbleOutputSM))/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T
         vOutput[:,:]=vInput+(aInitial+aFinal)/2*dT
+    elif (updateScheme==2):
+        xOutput[:,:]=xInput+vInput*dT+(dT*dT)/2*aInitial
+        aFinal=(MarbleCollision(marbleOutputSM))/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T
+        vOutput[:,:]=vInput+(aInitial+aFinal)/2*dT
+        xTest=xInput+vInput*dT+(dT*dT)/2*(aInitial+aFinal)/2
+        iters=0
+        while(np.max((xTest-xOutput)/marbleInputSM[6,:])>epsilon and iters<=maxIters):
+            xOutput[:,:]=xTest
+            aResid=((MarbleCollision(marbleOutputSM))/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T)-aFinal
+            vOutput[:,:] = vOutput+aResid/2*dT
+            xTest=xOutput+(dT*dT)/2*aResid/2
+            iters+=1
+            if(iters>maxIters):
+                print("Warning! Predictor-corrector unable to converge! Select another integration method.")
+                
     else:
         raise ValueError("Incorrect numerical integration scheme selected!")
     

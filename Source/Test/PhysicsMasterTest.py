@@ -17,19 +17,29 @@ import PhysicsMaster
 ##############
 #Test Settings
 ##############
-numParticles=50
+numParticles=20
 radius=10
-spawnRange=300
+spawnRange=90
 testTime=0.5
-dT=0.00001
-plotFreq=1000
-v0=500                   # Initial velocity range, actual values are on [-v0,v0]
+dT=0.000001
+plotFreq=10000
+v0=300                   # Initial velocity range, actual values are on [-v0,v0]
 
-#generate some positions and velocities
-pos=np.random.rand(3,numParticles)*spawnRange
+#quantize positions according to 3r
+numPts=int(spawnRange/(3*radius)+1)
+#draw positions linearly from the quantized points
+linpos=np.random.choice(numPts**3,size=numParticles,replace=False)
+#Convert this to x, y, and z coordinates
+zpos=(linpos/numPts/numPts).astype(int)*3*radius
+ypos=((linpos%(numPts*numPts))/numPts).astype(int)*3*radius
+xpos=(linpos%numPts).astype(int)*3*radius
+#Calcuate position
+pos=np.stack((xpos,ypos,zpos))
+
+#Randomly sample velocity
 vel=(np.random.rand(3,numParticles)-0.5)*2*v0
 
-#Set the velocity, radius, and material
+#Set the radius and material
 rad=np.ones((1,numParticles))*radius
 mat=np.ones((1,numParticles))
 
