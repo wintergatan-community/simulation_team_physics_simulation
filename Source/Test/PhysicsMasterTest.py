@@ -21,9 +21,9 @@ numParticles=50
 radius=10
 spawnRange=300
 testTime=0.5
-dT=0.0001
-plotFreq=100
-v0=100                   # Initial velocity range, actual values are on [-v0,v0]
+dT=0.00001
+plotFreq=1000
+v0=500                   # Initial velocity range, actual values are on [-v0,v0]
 
 #generate some positions and velocities
 pos=np.random.rand(3,numParticles)*spawnRange

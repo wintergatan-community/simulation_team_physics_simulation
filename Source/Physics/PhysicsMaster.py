@@ -9,13 +9,17 @@ Created: 7-17-2021
 import numpy as np
 
 #Format: [Density, Elastic Modulus, Poisson Ratio]
-#Units:  [g/mm^3 , MPa            , MPa          ]
+#Units:  [g/mm^3 , MPa            , mm/mm        ]
 #Materials: Stainless, Testing material (soft/elastic)
 materialInfo = np.asarray([[7.81,205000,0.30],\
-                           [7.81,20.5,0.30]])
+                           [7.81,205,0.30]])
 
 
 agrav=np.asarray([0,-9.81*1000,0]) #NOTE: LENGTH UNIT IS MM!!!!
+
+# 0 is forward finite difference for velocity, central finite difference for position
+# 1 is explicit central finite difference via newmark-beta
+updateScheme=1
 
 #A function to perform collision detection between marbles.
 #Usually returns force vectors. Currently returns zeroes always.
@@ -44,12 +48,10 @@ def MarbleCollision (marbleSM):
     fMag=np.sqrt(np.power(colDepth,3)*(16.0/9.0)*rEff*eEff*eEff)
     
     #Calculate XYZ direction and turn into forces:
+    np.fill_diagonal(cDist,1) #Note the diagonals are zeros, we have to fix this
     xDir=dx/cDist
-    np.fill_diagonal(xDir,0) #Note the diagonals are NaNs, we have to fix this
     yDir=dy/cDist 
-    np.fill_diagonal(yDir,0) 
     zDir=dz/cDist 
-    np.fill_diagonal(zDir,0) 
     
     fx=np.sum(xDir*fMag,axis=1)
     fy=np.sum(yDir*fMag,axis=1)
@@ -80,11 +82,17 @@ def PhysicsCalc (marbleInputSM,dT):
     fMarbleMarble=MarbleCollision(marbleInputSM)
     
     #Calculate acceleration due to collisions and gravity:
-    aTotal=fMarbleMarble/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T
+    aInitial=fMarbleMarble/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T
     
     #Recalculate velocity and position. Note the referencing notation to modify the original values.
-    #TODO: Switch to Newmark Beta Method
-    vOutput[:,:]=vInput+aTotal*dT
-    xOutput[:,:]=xInput+(vInput+vOutput)/2*dT
+    if (updateScheme==0):
+        vOutput[:,:]=vInput+aInitial*dT
+        xOutput[:,:]=xInput+(vInput+vOutput)/2*dT
+    elif (updateScheme==1):
+        xOutput[:,:]=xInput+vInput*dT+(dT*dT)/2*aInitial
+        aFinal=(MarbleCollision(marbleOutputSM))/marbleMass + np.tile(agrav,(marbleInputSM.shape[1],1)).T
+        vOutput[:,:]=vInput+(aInitial+aFinal)/2*dT
+    else:
+        raise ValueError("Incorrect numerical integration scheme selected!")
     
     return marbleOutputSM
