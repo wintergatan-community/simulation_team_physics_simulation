@@ -1,0 +1,13 @@
+Objective
+ To test your setup and familiarise with Blender environment
+
+Prerequisites
+ Blender is installed
+ optional - go through blender documentation available at https://docs.blender.org/api/current/info_quickstart.html
+
+Procedure
+ Start Blender
+ Select Scripting as active workspace
+ Load move_object_script.py
+ Run the script
+ 
