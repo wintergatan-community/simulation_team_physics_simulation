@@ -8,6 +8,6 @@ Prerequisites
 Procedure
  Start Blender
  Select Scripting as active workspace
- Load move_object_script.py
+ Load MoveObjectScript.py
  Run the script
  
