@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Physics master file
+Functionally-Programmed physics master file. Do not use this one.
 
 Author: Locket Rauncher
 Created: 7-17-2021
