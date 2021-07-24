@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Physics master unit test
+Functionally-programmed physics master unit test
 
 Author: Locket Rauncher
 Created: 7-17-2021
@@ -12,7 +12,7 @@ os.chdir('../Physics')
 
 import numpy as np
 import matplotlib.pyplot as plt
-import PhysicsMaster
+import FunctionalMaster
 
 ##############
 #Test Settings
