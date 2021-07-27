@@ -46,12 +46,17 @@ class MMXPhysics:
         self.marbles = marble_info
 
     def collision_force(self, positions):
-        pass
+        return np.zeros(positions.shape)
 
     # state = [x | y | z | vx | vy | vz ]
     def derivative(self, state):
-        state = state.reshape(6, len(self.marbles))
-        pass
+        pos, vel = state.reshape(2, 3*len(self.marbles))
+
+        dvdt = np.tile(grav_accel, (len(self.marbles), 1)) + self.collision_force(pos)/self.marbles.masses
+        dxdt = vel
+
+        return np.stack((dxdt, dvdt))
+
 
     def solve(self, dt):
         """Returns the times and positions of the ode solution
