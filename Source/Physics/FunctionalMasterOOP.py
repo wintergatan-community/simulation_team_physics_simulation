@@ -9,6 +9,7 @@ Created: 7-24-2021
 from dataclasses import dataclass
 
 import numpy as np
+from scipy.integrate import solve_ivp
 
 
 @dataclass
@@ -49,7 +50,7 @@ class MMXPhysics:
         return np.zeros(positions.shape)
 
     # state = [x | y | z | vx | vy | vz ]
-    def derivative(self, state):
+    def derivative(self, _, state):     # first argument should be time (not used)
         pos, vel = state.reshape(2, 3*len(self.marbles))
 
         dvdt = np.tile(grav_accel, (len(self.marbles), 1)) + self.collision_force(pos)/self.marbles.masses
@@ -57,12 +58,13 @@ class MMXPhysics:
 
         return np.stack((dxdt, dvdt))
 
-
-    def solve(self, dt):
+    def solve(self, t_end):
         """Returns the times and positions of the ode solution
             use scipy ODE solver
         """
-        pass
+        y0 = np.stack(self.pos, self.vel)
+        return solve_ivp(self.derivative, (0, t_end), y0)
+
 
 # def pairwise_add(array1, array2):
 #     nMarbles = len(array1)
