@@ -25,11 +25,6 @@ class MaterialInfo:
     poisson_ratio: float
 
 
-def pairwise_add(array1, array2):
-    shape = (len(array1), 1)
-    return np.tile(array1, shape) + np.tile(array2, shape).T
-
-
 class MarbleInfo:
     """This class holds all static data relating to the set of marbles"""
     def __init__(self, n_marbles: int, radius: float, material_info: MaterialInfo):
