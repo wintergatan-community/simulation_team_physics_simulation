@@ -12,6 +12,11 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 
+def pairwise_add(array1, array2):
+    shape = (len(array1), 1)
+    return np.tile(array1, shape) + np.tile(array2, shape).T
+
+
 @dataclass
 class MaterialInfo:
     """This class holds all static data relating to a material being used"""
