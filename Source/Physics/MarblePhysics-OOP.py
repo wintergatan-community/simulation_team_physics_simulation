@@ -87,7 +87,7 @@ class MMXPhysics:
         """Returns the times and positions of the ode solution
             use scipy ODE solver
         """
-        y0 = np.stack(self.pos, self.vel)
+        y0 = np.concatenate((self.pos.flatten(), self.vel.flatten()))
         return solve_ivp(self.derivative, (0, t_end), y0)
 
 
