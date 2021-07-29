@@ -40,8 +40,6 @@ class MarbleInfo:
         return self.size
 
 
-materialInfo = MaterialInfo(density=7.81, elastic_modulus=205000, poisson_ratio=0.30)
-
 grav_accel = np.array([0, -9.81*1000, 0])  # NOTE: LENGTH UNIT IS MM!!!!
 
 
@@ -91,3 +89,23 @@ class MMXPhysics:
         """
         y0 = np.stack(self.pos, self.vel)
         return solve_ivp(self.derivative, (0, t_end), y0)
+
+
+if __name__ == "__main__":
+    n_marbles = 20
+    radius = 10
+    material_info = MaterialInfo(density=7.81, elastic_modulus=2050, poisson_ratio=0.30)
+    marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
+
+    x = np.array([3*radius*n for n in range(4)])
+    y = np.array([3*radius*n for n in range(5)])
+    x, y = np.meshgrid(x, y)
+    x = x.flatten()
+    y = y.flatten()
+    z = 10*np.ones(y.shape)
+    positions = np.array([x, y, z])
+
+    velocities = np.random.random((3, n_marbles))
+    velocities[2, :] = np.zeros(n_marbles)
+
+    simulation = MMXPhysics(positions, velocities, marbles)
