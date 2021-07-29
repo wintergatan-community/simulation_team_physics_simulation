@@ -78,10 +78,9 @@ class MMXPhysics:
     def derivative(self, _, state):     # first argument should be time (not used)
         pos, vel = state.reshape(2, 3*len(self.marbles))
 
-        dvdt = np.tile(grav_accel, (3*len(self.marbles), 1)) + self.collision_force(pos)/self.marbles.masses
-        dxdt = vel
-
-        return np.stack((dxdt, dvdt))
+        dvdt = np.tile(grav_accel.T, len(self.marbles)).flatten()  # + self.collision_force(pos)/self.marbles.masses
+        dxdt = vel.flatten()
+        return np.concatenate((dxdt, dvdt))
 
     def solve(self, t_end):
         """Returns the times and positions of the ode solution
@@ -109,3 +108,6 @@ if __name__ == "__main__":
     velocities[2, :] = np.zeros(n_marbles)
 
     simulation = MMXPhysics(positions, velocities, marbles)
+    simulation.solve(1)
+
+
