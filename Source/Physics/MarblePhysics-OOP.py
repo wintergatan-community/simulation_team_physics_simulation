@@ -48,22 +48,35 @@ class MMXPhysics:
         self.pos = pos
         self.vel = vel
         self.marbles = marble_info
+        self.sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
+        
+        # Set up effective radius and elastic modulus for hertzian contact calc:
+        self.radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
+        self.elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
 
+        
+    # Function to allow for changing the marble matrix in the physics conductor (as marbles are created and destroyed)
+    def change_marbles(self, pos, vel, marble_info):
+        self.pos = pos
+        self.vel = vel
+        self.marbles = marble_info
+        self.sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
+        
+        # Set up effective radius and elastic modulus for hertzian contact calc:
+        self.radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
+        self.elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
+    
     def collision_force(self, positions):
         dx = pairwise_add(positions[0, :], -positions[0, :])
         dy = pairwise_add(positions[1, :], -positions[1, :])
         dz = pairwise_add(positions[2, :], -positions[2, :])
 
         disp_mag = np.linalg.norm([dx, dy, dz])
-        sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
-        collision_depth = np.maximum(sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero, hence "max"
-
-        # Set up effective radius and elastic modulus for hertzian contact calc:
-        radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
-        elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
-
+        
+        collision_depth = np.maximum(self.sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero, hence "max"
+        
         # Use sphere-on-sphere contact equations to determine force at depth:
-        force_mag = (4.0/3.0)*np.abs(elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*radii_eff)
+        force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*self.radii_eff)
         np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
         # Calculate XYZ direction and turn into forces:
