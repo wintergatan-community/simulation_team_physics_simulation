@@ -10,5 +10,5 @@ MMX Resources
 
 Algorithms and Methods
 ----------------------
-[Hertzian Contact Between Spheres](https://link.springer.com/referenceworkentry/10.1007%2F978-0-387-92897-5_492)
-[Finite Difference Method (Physics Update)](https://en.wikipedia.org/wiki/Finite_difference_method)
+[Hertzian Contact Between Spheres](https://link.springer.com/referenceworkentry/10.1007%2F978-0-387-92897-5_492)   
+[Finite Difference Method (Physics Update)](https://en.wikipedia.org/wiki/Finite_difference_method)   
