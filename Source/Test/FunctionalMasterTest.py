@@ -12,7 +12,7 @@ os.chdir('../Physics')
 
 import numpy as np
 import matplotlib.pyplot as plt
-import FunctionalMaster
+import MarblePhysics-FP
 
 ##############
 #Test Settings
