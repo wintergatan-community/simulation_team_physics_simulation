@@ -53,10 +53,11 @@ class MMXPhysics:
         dx = pairwise_add(positions[0, :], -positions[0, :])
         dy = pairwise_add(positions[1, :], -positions[1, :])
         dz = pairwise_add(positions[2, :], -positions[2, :])
+        disp_mag = np.sqrt(dx*dx + dy*dy + dz*dz)
 
-        disp_mag = np.linalg.norm([dx, dy, dz])
         sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
         collision_depth = np.maximum(sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero, hence "max"
+        np.fill_diagonal(collision_depth, 0)  # Marbles don't collide with themselves
 
         # Set up effective radius and elastic modulus for hertzian contact calc:
         radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
@@ -76,11 +77,14 @@ class MMXPhysics:
 
     # state = [x | y | z | vx | vy | vz ]
     def derivative(self, _, state):     # first argument should be time (not used)
-        pos, vel = state.reshape(2, 3*len(self.marbles))
+        pos, vel = np.reshape(state, (2, 3, -1))
 
-        dvdt = np.tile(grav_accel.T, len(self.marbles)).flatten()  # + self.collision_force(pos)/self.marbles.masses
-        dxdt = vel.flatten()
-        return np.concatenate((dxdt, dvdt))
+        accel_g = np.tile(grav_accel, (len(self.marbles), 1)).transpose()
+        accel_mm = self.collision_force(pos)/self.marbles.masses
+
+        dvdt = accel_g + accel_mm
+        dxdt = vel
+        return np.stack((dvdt, dxdt)).flatten()
 
     def solve(self, t_end):
         """Returns the times and positions of the ode solution
