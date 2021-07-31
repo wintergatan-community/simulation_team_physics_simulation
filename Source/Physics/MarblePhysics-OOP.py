@@ -102,19 +102,21 @@ class MMXPhysics:
             use scipy ODE solver
         """
         y0 = np.concatenate((self.pos.flatten(), self.vel.flatten()))
-        return solve_ivp(self.derivative, (0, t_end), y0)
+        t_vals = np.arange(0, t_end, 1e-2)
+        return solve_ivp(self.derivative, (0, t_end), y0, t_eval=t_vals,
+                         method='Radau', max_step=1e-4)
 
 
 if __name__ == "__main__":
-    n_marbles = 20
+    n_marbles = 49
     radius = 10
     height = 100
     material_info = MaterialInfo(density=7.81, elastic_modulus=2050, poisson_ratio=0.30)
     marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
 
     # Create 5 x 4 grid of marbles, spaced to they don't initially collide
-    x = np.arange(0, 3*radius*4, 3*radius)
-    y = np.arange(0, 3*radius*5, 3*radius)
+    x = np.arange(0, 0.5*radius*7, 0.5*radius)
+    y = np.arange(0, 0.5*radius*7, 0.5*radius)
     x, y = np.meshgrid(x, y)
     x = x.flatten()
     y = y.flatten()
@@ -122,13 +124,20 @@ if __name__ == "__main__":
     positions = np.array([x, y, z])
 
     # give random horizontal velocity with 0 vertical component
-    velocities = np.random.random((3, n_marbles))
+    velocities = 300*(np.random.random((3, n_marbles)) - 0.5)
     velocities[2, :] = np.zeros(n_marbles)
 
     # Initialize Simulation
     simulation = MMXPhysics(positions, velocities, marbles)
 
     # Solve
-    simulation.solve(1)
+    solution = simulation.solve(0.3)
 
+    import matplotlib.pyplot as plt
+    result = np.reshape(solution.y, (6, n_marbles, -1))
+    x, y, z = result[0:3, :, :]
+    ax = plt.figure().add_subplot(projection='3d')
+    for i in range(n_marbles):
+        ax.plot(x[i], y[i], z[i])
+    plt.show()
 
