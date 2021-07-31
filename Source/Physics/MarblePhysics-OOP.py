@@ -68,22 +68,33 @@ class MMXPhysics:
         np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
         # Calculate XYZ direction and turn into forces:
-        np.fill_diagonal(disp_mag, 1)   # Note the diagonals are zeros, we have to fix this
+        np.fill_diagonal(disp_mag, 1)   # Note the diagonals are zeros, avoid division by zero
 
         fx = np.sum(force_mag*dx/disp_mag, axis=1)
         fy = np.sum(force_mag*dy/disp_mag, axis=1)
         fz = np.sum(force_mag*dz/disp_mag, axis=1)
         return np.stack((fx, fy, fz))
 
-    # state = [x | y | z | vx | vy | vz ]
-    def derivative(self, _, state):     # first argument should be time (not used)
+    def derivative(self, _, state):
+        """
+            compute rhs for d/dt = F(t, X),
+            first argument would be time (not used)
+            state = [x | y | z | vx | vy | vz ]
+            return value is same shape as state 1 x 6*N
+        """
+
+        # Unpack shape, pos and vel are 3 x N arrays
         pos, vel = np.reshape(state, (2, 3, -1))
 
+        # Compute accelerations
         accel_g = np.tile(grav_accel, (len(self.marbles), 1)).transpose()
         accel_mm = self.collision_force(pos)/self.marbles.masses
 
+        # ODE System
         dvdt = accel_g + accel_mm
         dxdt = vel
+
+        # pack/flatten to proper shape
         return np.stack((dvdt, dxdt)).flatten()
 
     def solve(self, t_end):
@@ -110,10 +121,14 @@ if __name__ == "__main__":
     z = height*np.ones(y.shape)
     positions = np.array([x, y, z])
 
+    # give random horizontal velocity with 0 vertical component
     velocities = np.random.random((3, n_marbles))
     velocities[2, :] = np.zeros(n_marbles)
 
+    # Initialize Simulation
     simulation = MMXPhysics(positions, velocities, marbles)
+
+    # Solve
     simulation.solve(1)
 
 
