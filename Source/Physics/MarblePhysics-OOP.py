@@ -40,7 +40,7 @@ class MarbleInfo:
         return self.size
 
 
-grav_accel = np.array([0, -9.81*1000, 0])  # NOTE: LENGTH UNIT IS MM!!!!
+grav_accel = np.array([0, 0, -9.81*1000])  # NOTE: LENGTH UNIT IS MM!!!!
 
 
 class MMXPhysics:
