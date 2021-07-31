@@ -61,10 +61,10 @@ class MMXPhysics:
 
         # Set up effective radius and elastic modulus for hertzian contact calc:
         radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
-        elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
+        elasticities_eff = 1/pairwise_add(1/self.marbles.elasticities, 1/self.marbles.elasticities)
 
         # Use sphere-on-sphere contact equations to determine force at depth:
-        force_mag = (4.0/3.0)*np.abs(elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*radii_eff)
+        force_mag = (4.0/3.0)*np.abs(elasticities_eff)*np.sqrt(np.power(collision_depth, 3)*radii_eff)
         np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
         # Calculate XYZ direction and turn into forces:
