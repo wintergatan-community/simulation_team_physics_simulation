@@ -91,11 +91,11 @@ class MMXPhysics:
         accel_mm = self.collision_force(pos)/self.marbles.masses
 
         # ODE System
-        dvdt = accel_g + accel_mm
         dxdt = vel
+        dvdt = accel_g + accel_mm
 
         # pack/flatten to proper shape
-        return np.stack((dvdt, dxdt)).flatten()
+        return np.stack((dxdt, dvdt)).flatten()
 
     def solve(self, t_end):
         """Returns the times and positions of the ode solution
