@@ -97,15 +97,17 @@ class MMXPhysics:
 if __name__ == "__main__":
     n_marbles = 20
     radius = 10
+    height = 100
     material_info = MaterialInfo(density=7.81, elastic_modulus=2050, poisson_ratio=0.30)
     marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
 
-    x = np.array([3*radius*n for n in range(4)])
-    y = np.array([3*radius*n for n in range(5)])
+    # Create 5 x 4 grid of marbles, spaced to they don't initially collide
+    x = np.arange(0, 3*radius*4, 3*radius)
+    y = np.arange(0, 3*radius*5, 3*radius)
     x, y = np.meshgrid(x, y)
     x = x.flatten()
     y = y.flatten()
-    z = 10*np.ones(y.shape)
+    z = height*np.ones(y.shape)
     positions = np.array([x, y, z])
 
     velocities = np.random.random((3, n_marbles))
