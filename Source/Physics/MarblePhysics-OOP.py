@@ -48,9 +48,9 @@ class MMXPhysics:
         self.pos = pos
         self.vel = vel
         self.marbles = marble_info
-        self.sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
 
-        # Set up effective radius and elastic modulus for hertzian contact calc:
+        # Cache effective radius and elastic modulus for hertzian contact calc:
+        self.sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
         self.radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
         self.elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
 
@@ -58,16 +58,15 @@ class MMXPhysics:
         dx = pairwise_add(positions[0, :], -positions[0, :])
         dy = pairwise_add(positions[1, :], -positions[1, :])
         dz = pairwise_add(positions[2, :], -positions[2, :])
-        disp_mag = np.sqrt(dx*dx + dy*dy + dz*dz)
-
-        collision_depth = np.maximum(self.sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero, hence "max"
-
-        # Use sphere-on-sphere contact equations to determine force at depth:
-        force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*self.radii_eff)
-        np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
         # Calculate XYZ direction and turn into forces:
+        disp_mag = np.sqrt(dx*dx + dy*dy + dz*dz)
         np.fill_diagonal(disp_mag, 1)   # Note the diagonals are zeros, avoid division by zero
+
+        # Use sphere-on-sphere contact equations to determine force at depth:
+        collision_depth = np.maximum(self.sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero
+        force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*self.radii_eff)
+        np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
         fx = np.sum(force_mag*dx/disp_mag, axis=1)
         fy = np.sum(force_mag*dy/disp_mag, axis=1)
@@ -139,4 +138,3 @@ if __name__ == "__main__":
     for i in range(n_marbles):
         ax.plot(x[i], y[i], z[i])
     plt.show()
-
