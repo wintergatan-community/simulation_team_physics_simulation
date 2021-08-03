@@ -15,7 +15,7 @@ try:
 
     import numpy as np
     import matplotlib.pyplot as plt
-    import MarblePhysics-FP
+    import MarblePhysics_FP
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
     raise SystemExit
