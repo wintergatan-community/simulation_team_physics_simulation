@@ -6,11 +6,14 @@ Author: Kyle Williams
 Created: 7-24-2021
 
 """
-from dataclasses import dataclass
+try:
+    from dataclasses import dataclass
 
-import numpy as np
-from scipy.integrate import solve_ivp
-
+    import numpy as np
+    from scipy.integrate import solve_ivp
+except ModuleNotFoundError:
+    print("ERROR: Module not found. Please install the numpy and wave package before running.")
+    raise SystemExit
 
 def pairwise_add(array1, array2):
     shape = (len(array1), 1)
@@ -131,9 +134,16 @@ if __name__ == "__main__":
     # Solve
     solution = simulation.solve(0.3)
 
-    import matplotlib.pyplot as plt
+    # Visualise the results.
     result = np.reshape(solution.y, (6, n_marbles, -1))
     x, y, z = result[0:3, :, :]
+    
+    try:
+        import matplotlib.pyplot as plt
+    except ModuleNotFoundError:
+        print("ERROR: Module not found. Please install the numpy and wave package before running.")
+        raise SystemExit
+    
     ax = plt.figure().add_subplot(projection='3d')
     for i in range(n_marbles):
         ax.plot(x[i], y[i], z[i])

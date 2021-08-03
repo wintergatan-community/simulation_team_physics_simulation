@@ -6,13 +6,19 @@ Author: Locket Rauncher
 Created: 7-17-2021
 
 """
-import os
-path = os.getcwd()
-os.chdir('../Physics')
 
-import numpy as np
-import matplotlib.pyplot as plt
-import MarblePhysics-FP
+try:
+    import os
+
+    path = os.getcwd()
+    os.chdir('../Physics')
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import MarblePhysics-FP
+except ModuleNotFoundError:
+    print("ERROR: Module not found. Please install the numpy package before running.")
+    raise SystemExit
 
 ##############
 #Test Settings
