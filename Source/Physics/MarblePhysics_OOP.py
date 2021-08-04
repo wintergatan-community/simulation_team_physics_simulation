@@ -8,7 +8,8 @@ Created: 7-24-2021
 """
 try:
     from dataclasses import dataclass
-
+    
+    import time
     import numpy as np
     from scipy.integrate import solve_ivp
 except ModuleNotFoundError:
@@ -54,8 +55,12 @@ class MMXPhysics:
 
         # Cache effective radius and elastic modulus for hertzian contact calc:
         self.sum_radii = pairwise_add(self.marbles.radii, self.marbles.radii)
-        self.radii_eff = 1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii)
-        self.elasticity_eff = 1/pairwise_add(1/self.marbles.elasticity, 1/self.marbles.elasticity)
+        self.sqrt_radii_eff = np.sqrt(1/pairwise_add(1/self.marbles.radii, 1/self.marbles.radii))
+        self.elasticity_eff = 1/pairwise_add(1/self.marbles.elasticities, 1/self.marbles.elasticities)
+        
+        #Cache a masking array for not-self marbles
+        self.n_marbles=pos.shape[1]
+        self.not_self_marble = 1-np.eye(self.n_marbles)
 
     def collision_force(self, positions):
         dx = pairwise_add(positions[0, :], -positions[0, :])
@@ -68,9 +73,38 @@ class MMXPhysics:
 
         # Use sphere-on-sphere contact equations to determine force at depth:
         collision_depth = np.maximum(self.sum_radii-disp_mag, 0)  # Collision depth cannot be smaller than zero
-        force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*np.sqrt(np.power(collision_depth, 3)*self.radii_eff)
+        force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*self.sqrt_radii_eff*collision_depth*np.sqrt(collision_depth)
         np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
+        fx = np.sum(force_mag*dx/disp_mag, axis=1)
+        fy = np.sum(force_mag*dy/disp_mag, axis=1)
+        fz = np.sum(force_mag*dz/disp_mag, axis=1)
+        return np.stack((fx, fy, fz))
+    
+    def masked_collision_force(self, positions):
+        dx = pairwise_add(positions[0, :], -positions[0, :])
+        dy = pairwise_add(positions[1, :], -positions[1, :])
+        dz = pairwise_add(positions[2, :], -positions[2, :])
+        
+        # Use the maximum single-dimension distance as a lower bound for separation, make a mask for further operations:
+        sumdim = np.abs(dx)+np.abs(dy)+np.abs(dz)
+        dm= np.logical_and(sumdim<=self.sum_radii, self.not_self_marble)
+        
+        
+        # Calculate XYZ direction, but only for relevant dims. For non-colliding dims, just default to 1 to avoid NaN:
+        disp_mag = np.ones(dx.shape)
+        disp_mag[dm] = np.sqrt(dx[dm]*dx[dm] + dy[dm]*dy[dm] + dz[dm]*dz[dm])
+        #np.fill_diagonal(disp_mag, 1)   # Note the diagonals are zeros, avoid division by zero
+        
+        
+
+        # Use sphere-on-sphere contact equations to determine force at depth:
+        collision_depth = np.maximum(self.sum_radii[dm]-disp_mag[dm], 0)  # Collision depth cannot be smaller than zero
+        force_mag=np.zeros(dx.shape)
+        force_mag[dm] = (4.0/3.0)*np.abs(self.elasticity_eff[dm])*self.sqrt_radii_eff[dm]*collision_depth*np.sqrt(collision_depth)
+        #np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
+        
+        
         fx = np.sum(force_mag*dx/disp_mag, axis=1)
         fy = np.sum(force_mag*dy/disp_mag, axis=1)
         fz = np.sum(force_mag*dz/disp_mag, axis=1)
@@ -109,15 +143,17 @@ class MMXPhysics:
 
 
 if __name__ == "__main__":
-    n_marbles = 49
+    tstart=time.time()
+    marblelayout = [5,5,1] # x,y,z initial layout for test case marbles. Note z is not used currently
+    n_marbles = np.prod(marblelayout)
     radius = 10
     height = 100
-    material_info = MaterialInfo(density=7.81, elastic_modulus=2050, poisson_ratio=0.30)
+    material_info = MaterialInfo(density=.0781, elastic_modulus=20500, poisson_ratio=0.30)
     marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
 
-    # Create 5 x 4 grid of marbles, spaced to they don't initially collide
-    x = np.arange(0, 0.5*radius*7, 0.5*radius)
-    y = np.arange(0, 0.5*radius*7, 0.5*radius)
+    # Create X x Y grid of marbles, spaced to they don't initially collide
+    x = np.arange(0, 2.2*radius*marblelayout[0], 2.2*radius)
+    y = np.arange(0, 2.2*radius*marblelayout[1], 2.2*radius)
     x, y = np.meshgrid(x, y)
     x = x.flatten()
     y = y.flatten()
@@ -129,11 +165,13 @@ if __name__ == "__main__":
     velocities[2, :] = np.zeros(n_marbles)
 
     # Initialize Simulation
+    tsolver=time.time()
     simulation = MMXPhysics(positions, velocities, marbles)
-
+    
     # Solve
-    solution = simulation.solve(0.3)
-
+    solution = simulation.solve(0.6)
+    print("Solver time: ",time.time()-tsolver)
+    
     # Visualise the results.
     result = np.reshape(solution.y, (6, n_marbles, -1))
     x, y, z = result[0:3, :, :]
@@ -148,3 +186,4 @@ if __name__ == "__main__":
     for i in range(n_marbles):
         ax.plot(x[i], y[i], z[i])
     plt.show()
+    print("Total runtime: ",time.time()-tstart)
