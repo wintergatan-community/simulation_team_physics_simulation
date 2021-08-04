@@ -6,7 +6,11 @@ Author: Locket Rauncher
 Created: 7-17-2021
 
 """
-import numpy as np
+try:
+    import numpy as np
+except ModuleNotFoundError:
+    print("ERROR: Module not found. Please install the numpy package before running.")
+    raise SystemExit
 
 #Format: [Density, Elastic Modulus, Poisson Ratio]
 #Units:  [g/mm^3 , MPa            , mm/mm        ]
