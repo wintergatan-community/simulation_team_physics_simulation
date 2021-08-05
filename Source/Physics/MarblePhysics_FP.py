@@ -15,8 +15,8 @@ except ModuleNotFoundError:
 #Format: [Density, Elastic Modulus, Poisson Ratio]
 #Units:  [g/mm^3 , MPa            , mm/mm        ]
 #Materials: Stainless, Testing material (soft/elastic)
-materialInfo = np.asarray([[0.0781,205000,0.30],\
-                           [0.0781,2050,0.30]])
+materialInfo = np.asarray([[0.00781,205000,0.30],\
+                           [0.00781,2050,0.30]])
 
 
 agrav=np.asarray([0,-9.81*1000,0]) #NOTE: LENGTH UNIT IS MM!!!!
