@@ -8,7 +8,6 @@ Created: 7-24-2021
 """
 try:
     from dataclasses import dataclass
-    
     import time
     import numpy as np
     from scipy.integrate import solve_ivp
@@ -137,21 +136,22 @@ class MMXPhysics:
             use scipy ODE solver
         """
         y0 = np.concatenate((self.pos.flatten(), self.vel.flatten()))
-        t_vals = np.arange(0, t_end, 1e-2)
+        t_vals = np.arange(0, t_end, 4e-3)
         return solve_ivp(self.derivative, (0, t_end), y0, t_eval=t_vals,
                          method='Radau')
 
 
 if __name__ == "__main__":
+    animation=True
     tstart=time.time()
-    marblelayout = [5,5,1] # x,y,z initial layout for test case marbles. Note z is not used currently
+    marblelayout = [4,4,1] # x,y,z initial layout for test case marbles. Note z is not used currently
     n_marbles = np.prod(marblelayout)
     radius = 10
     height = 100
     material_info = MaterialInfo(density=.00781, elastic_modulus=205000, poisson_ratio=0.30)
     marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
 
-    # Create X x Y grid of marbles, spaced to they don't initially collide
+    # Create X x Y grid of marbles, spaced so they don't initially collide
     x = np.arange(0, 2.5*radius*marblelayout[0], 2.5*radius)
     y = np.arange(0, 2.5*radius*marblelayout[1], 2.5*radius)
     x, y = np.meshgrid(x, y)
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     positions = np.array([x, y, z])
 
     # give random horizontal velocity with 0 vertical component
-    velocities = 300*(np.random.random((3, n_marbles)) - 0.5)
+    velocities = 600*(np.random.random((3, n_marbles)) - 0.5)
     velocities[2, :] = np.zeros(n_marbles)
 
     # Initialize Simulation
@@ -169,21 +169,66 @@ if __name__ == "__main__":
     simulation = MMXPhysics(positions, velocities, marbles)
     
     # Solve
-    solution = simulation.solve(0.6)
+    solution = simulation.solve(0.4)
     print("Solver time: ",time.time()-tsolver)
     
     # Visualise the results.
     result = np.reshape(solution.y, (6, n_marbles, -1))
     x, y, z = result[0:3, :, :]
     
-    try:
-        import matplotlib.pyplot as plt
-    except ModuleNotFoundError:
-        print("ERROR: Module not found. Please install the numpy and wave package before running.")
-        raise SystemExit
-    
-    ax = plt.figure().add_subplot(projection='3d')
-    for i in range(n_marbles):
-        ax.plot(x[i], y[i], z[i])
-    plt.show()
-    print("Total runtime: ",time.time()-tstart)
+    if animation:
+        try:
+            import matplotlib.pyplot as plt
+            import matplotlib.animation as animation
+        except ModuleNotFoundError:
+            print("ERROR: Module not found. Please install matplotlib.")
+            raise SystemExit
+        
+        #Plotting things
+        u = np.linspace(0, 2 * np.pi, 8)
+        v = np.linspace(0, np.pi, 8)
+        px = radius * np.outer(np.cos(u), np.sin(v))
+        py = radius * np.outer(np.sin(u), np.sin(v))
+        pz = radius * np.outer(np.ones(np.size(u)), np.cos(v))
+        
+        def update_spheres(num, data, surfs):
+            for i in range(n_marbles):
+                surfs[i].remove()
+                surfs[i] = ax.plot_surface(px+result[0,i,num], py+result[1,i,num], pz+result[2,i,num], color='grey')
+        
+        # Attaching 3D axis to the figure
+        fig = plt.figure()
+        ax = fig.add_subplot(projection="3d")
+        
+        spheres=[]
+        for i in range(n_marbles):
+            spheres.append(ax.plot_surface(px+result[0,i,0], py+result[1,i,0], pz+result[2,i,0], color='grey'))
+
+        # Setting the axes properties
+        ax.set_xlim3d([-50, 150])
+        ax.set_xlabel('X')
+        
+        ax.set_ylim3d([-50, 150])
+        ax.set_ylabel('Y')
+        
+        ax.set_zlim3d([-100, 100])
+        ax.set_zlabel('Z')
+        
+        ax.set_title('3D Test')
+        
+        # Creating the Animation object
+        line_ani = animation.FuncAnimation(fig, update_spheres, result.shape[2], fargs=(result, spheres), interval=5)
+        
+        plt.show()
+    else:
+        try:
+            import matplotlib.pyplot as plt
+        except ModuleNotFoundError:
+            print("ERROR: Module not found. Please install matplotlib.")
+            raise SystemExit
+        
+        ax = plt.figure().add_subplot(projection='3d')
+        for i in range(n_marbles):
+            ax.plot(x[i], y[i], z[i])
+        plt.show()
+        print("Total runtime: ",time.time()-tstart)
