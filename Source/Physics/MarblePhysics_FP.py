@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+    # -*- coding: utf-8 -*-
 """
 Functionally-Programmed physics master file. Do not use this one.
 
@@ -59,9 +59,9 @@ def MarbleCollision (marbleSM):
     yDir=dy/cDist 
     zDir=dz/cDist 
     
-    fx=np.sum(xDir*fMag,axis=1)
-    fy=np.sum(yDir*fMag,axis=1)
-    fz=np.sum(zDir*fMag,axis=1)
+    fx=np.sum(-xDir*fMag,axis=1)
+    fy=np.sum(-yDir*fMag,axis=1)
+    fz=np.sum(-zDir*fMag,axis=1)
     forceArray=np.stack((fx,fy,fz))
     return forceArray
 #A function to update marble positions using physics calculations.
