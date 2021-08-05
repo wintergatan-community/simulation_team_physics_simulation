@@ -76,9 +76,9 @@ class MMXPhysics:
         force_mag = (4.0/3.0)*np.abs(self.elasticity_eff)*self.sqrt_radii_eff*collision_depth*np.sqrt(collision_depth)
         np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
 
-        fx = np.sum(force_mag*dx/disp_mag, axis=1)
-        fy = np.sum(force_mag*dy/disp_mag, axis=1)
-        fz = np.sum(force_mag*dz/disp_mag, axis=1)
+        fx = np.sum(-force_mag*dx/disp_mag, axis=1)
+        fy = np.sum(-force_mag*dy/disp_mag, axis=1)
+        fz = np.sum(-force_mag*dz/disp_mag, axis=1)
         return np.stack((fx, fy, fz))
     
     def masked_collision_force(self, positions):
@@ -105,9 +105,9 @@ class MMXPhysics:
         #np.fill_diagonal(force_mag, 0)  # Marbles don't exert force on themselves
         
         
-        fx = np.sum(force_mag*dx/disp_mag, axis=1)
-        fy = np.sum(force_mag*dy/disp_mag, axis=1)
-        fz = np.sum(force_mag*dz/disp_mag, axis=1)
+        fx = np.sum(-force_mag*dx/disp_mag, axis=1)
+        fy = np.sum(-force_mag*dy/disp_mag, axis=1)
+        fz = np.sum(-force_mag*dz/disp_mag, axis=1)
         return np.stack((fx, fy, fz))
 
     def derivative(self, _, state):
@@ -139,7 +139,7 @@ class MMXPhysics:
         y0 = np.concatenate((self.pos.flatten(), self.vel.flatten()))
         t_vals = np.arange(0, t_end, 1e-2)
         return solve_ivp(self.derivative, (0, t_end), y0, t_eval=t_vals,
-                         method='Radau', max_step=1e-4)
+                         method='Radau')
 
 
 if __name__ == "__main__":
@@ -148,12 +148,12 @@ if __name__ == "__main__":
     n_marbles = np.prod(marblelayout)
     radius = 10
     height = 100
-    material_info = MaterialInfo(density=.0781, elastic_modulus=20500, poisson_ratio=0.30)
+    material_info = MaterialInfo(density=.00781, elastic_modulus=205000, poisson_ratio=0.30)
     marbles = MarbleInfo(n_marbles=n_marbles, radius=radius, material_info=material_info)
 
     # Create X x Y grid of marbles, spaced to they don't initially collide
-    x = np.arange(0, 2.2*radius*marblelayout[0], 2.2*radius)
-    y = np.arange(0, 2.2*radius*marblelayout[1], 2.2*radius)
+    x = np.arange(0, 2.5*radius*marblelayout[0], 2.5*radius)
+    y = np.arange(0, 2.5*radius*marblelayout[1], 2.5*radius)
     x, y = np.meshgrid(x, y)
     x = x.flatten()
     y = y.flatten()
