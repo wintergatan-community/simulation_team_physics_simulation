@@ -9,7 +9,18 @@ bl_info = {
 }
 
 import bpy
+import sys
+import os
 
+# customise path
+#sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
+# customise path
+sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
+
+# uncommenting and importing Physics crashes my blender
+#import MarblePhysics_OOP
+# this import works
+import helloworld as hw
 
 class ObjectMoveXY(bpy.types.Operator):
     """My Object Moving Script"""      # Use this as a tooltip for menu items and buttons.
@@ -22,8 +33,13 @@ class ObjectMoveXY(bpy.types.Operator):
         # The original script
         scene = context.scene
         for obj in scene.objects:
-            obj.location.x += 1.0
-            obj.location.y += 2.0
+            obj.location.x += -1.0
+            obj.location.y += -2.0
+            obj.location.z += 0.5
+            print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
+            hw.print_hello_world() # this shows whether the import of a simple file works
+        
+        
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
