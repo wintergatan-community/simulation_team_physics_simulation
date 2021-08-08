@@ -14,7 +14,7 @@ try:
     from scipy.integrate import solve_ivp
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy and wave package before running.")
-    raise SystemExit
+#    raise SystemExit
 
 def pairwise_add(array1, array2):
     shape = (len(array1), 1)

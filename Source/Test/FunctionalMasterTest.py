@@ -18,7 +18,7 @@ try:
     import MarblePhysics_FP
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
-    raise SystemExit
+#    raise SystemExit
 
 ##############
 #Test Settings
