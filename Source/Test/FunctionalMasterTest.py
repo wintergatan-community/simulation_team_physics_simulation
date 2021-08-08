@@ -19,7 +19,7 @@ try:
     import matplotlib.animation as animation
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
-    raise SystemExit
+#    raise SystemExit
 
 ##############
 #Test Settings
