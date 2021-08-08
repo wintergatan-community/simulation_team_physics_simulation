@@ -12,7 +12,7 @@ try:
     import numpy as np
     from scipy.integrate import solve_ivp
 except ModuleNotFoundError:
-    print("ERROR: Module not found. Please install the numpy and wave package before running.")
+    print("ERROR: Module not found. Please install the numpy and scipy package before running.")
 #    raise SystemExit
 
 def pairwise_add(array1, array2):
