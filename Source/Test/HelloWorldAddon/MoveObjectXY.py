@@ -36,7 +36,8 @@ class ObjectMoveXY(bpy.types.Operator):
             obj.location.x += -1.0
             obj.location.y += -2.0
             obj.location.z += 0.5
-            print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
+            #print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
+            print(obj.name)
             hw.print_hello_world() # this shows whether the import of a simple file works
         
         
