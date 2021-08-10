@@ -10,7 +10,7 @@ try:
     import numpy as np
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
-    raise SystemExit
+#    raise SystemExit
 
 #Format: [Density, Elastic Modulus, Poisson Ratio]
 #Units:  [g/mm^3 , MPa            , mm/mm        ]
