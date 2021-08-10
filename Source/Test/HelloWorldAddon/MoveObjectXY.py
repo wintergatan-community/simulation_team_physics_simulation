@@ -13,12 +13,12 @@ import sys
 import os
 
 # customise path
-#sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
+sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
 # customise path
 sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
 
 # uncommenting and importing Physics crashes my blender
-#import MarblePhysics_OOP
+import MarblePhysics_OOP
 # this import works
 import helloworld as hw
 
