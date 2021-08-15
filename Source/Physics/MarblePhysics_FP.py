@@ -1,6 +1,7 @@
     # -*- coding: utf-8 -*-
 """
-Functionally-Programmed physics master file. Do not use this one.
+Functionally-Programmed physics master file.
+This file is depricated in favor of
 
 Author: Locket Rauncher
 Created: 7-17-2021
@@ -10,7 +11,6 @@ try:
     import numpy as np
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
-#    raise SystemExit
 
 #Format: [Density, Elastic Modulus, Poisson Ratio]
 #Units:  [g/mm^3 , MPa            , mm/mm        ]
