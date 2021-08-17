@@ -16,7 +16,7 @@ try:
     import os
     import bpy
     import numpy as np
-    import Physics.MarblePhysics_OOP
+    import Wintergatan.Physics.MarblePhysics_OOP
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy package before running.")
 #    raise SystemExit
