@@ -10,12 +10,12 @@ Created: 7-17-2021
 try:
     import os
 
-    path = os.getcwd()
-    os.chdir('../Physics')
+    #path = os.getcwd()
+    #os.chdir('../Physics')
 
     import numpy as np
     import matplotlib.pyplot as plt
-    import MarblePhysics_FP
+    import Wintergatan.Physics.MarblePhysics_OOP as MarblePhysics_OOP
     import matplotlib.animation as animation
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy and matplotlib package before running.")
@@ -59,7 +59,7 @@ data=[]
 
 while (curTime<testTime):
     #Update positions
-    particleArray=MarblePhysics_FP.PhysicsCalc(particleArray,dT)
+    particleArray=MarblePhysics_OOP.PhysicsCalc(particleArray,dT)
     #Plot update
     if (int(curTime/dT)%plotFreq==0):
         data.append(particleArray)
@@ -103,4 +103,4 @@ line_ani = animation.FuncAnimation(fig, update_spheres, len(data), fargs=(data, 
 
 plt.show()
     
-os.chdir(path)
+#os.chdir(path)
