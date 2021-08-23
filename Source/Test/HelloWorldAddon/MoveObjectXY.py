@@ -12,13 +12,14 @@ import bpy
 import sys
 import os
 
+# With link of source folder to Blender Addon=>Wintergatan, no need for customising path
 # customise path
-sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
+#sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
 # customise path
-sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
+#sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
 
 # uncommenting and importing Physics crashes my blender
-import MarblePhysics_OOP
+import Wintergatan.Physics.MarblePhysics_OOP as MarblePhysics_OOP
 # this import works
 import helloworld as hw
 
