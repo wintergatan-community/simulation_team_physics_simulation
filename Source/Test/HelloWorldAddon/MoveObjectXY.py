@@ -11,16 +11,19 @@ bl_info = {
 import bpy
 import sys
 import os
+import Wintergatan.Physics.MarblePhysics_OOP
 
 # customise path
 #sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
 # customise path
-sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
+#sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
+#sys.path.append('C:/vsatish/MMX/Blender/Project/GitHub/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
 
-# uncommenting and importing Physics crashes my blender
-#import MarblePhysics_OOP
-# this import works
-import helloworld as hw
+import Wintergatan.Test.HelloWorldAddon.helloworld as hw
+
+print(os.path.realpath(__file__))
+path = os.getcwd()
+print(path)
 
 class ObjectMoveXY(bpy.types.Operator):
     """My Object Moving Script"""      # Use this as a tooltip for menu items and buttons.
