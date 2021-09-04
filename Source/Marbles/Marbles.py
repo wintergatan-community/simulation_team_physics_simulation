@@ -6,6 +6,11 @@ Object Oriented-Programmed Marbles class.
 Created: August 4 2021
 
 """
+# Objective
+#1. creating/spawning marbles into blender
+#2. applying custom material properties
+#3. creating them as part of one particle system.
+#4. translating them to numpy and back for our physics
 
 try:
     from dataclasses import dataclass
@@ -39,3 +44,5 @@ class MarbleInfo:
 
 # TODO #10 
 # TODO #11
+
+#bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
