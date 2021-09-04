@@ -11,17 +11,19 @@ bl_info = {
 import bpy
 import sys
 import os
+import Wintergatan.Physics.MarblePhysics_OOP
 
-# With link of source folder to Blender Addon=>Wintergatan, no need for customising path
 # customise path
 #sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
 # customise path
 #sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
+#sys.path.append('C:/vsatish/MMX/Blender/Project/GitHub/simulation_team_physics_simulation/Source/Test/HelloWorldAddon')
 
-# uncommenting and importing Physics crashes my blender
-import Wintergatan.Physics.MarblePhysics_OOP as MarblePhysics_OOP
-# this import works
-import helloworld as hw
+import Wintergatan.Test.HelloWorldAddon.helloworld as hw
+
+print(os.path.realpath(__file__))
+path = os.getcwd()
+print(path)
 
 class ObjectMoveXY(bpy.types.Operator):
     """My Object Moving Script"""      # Use this as a tooltip for menu items and buttons.
@@ -37,8 +39,7 @@ class ObjectMoveXY(bpy.types.Operator):
             obj.location.x += -1.0
             obj.location.y += -2.0
             obj.location.z += 0.5
-            #print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
-            print(obj.name)
+            print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
             hw.print_hello_world() # this shows whether the import of a simple file works
         
         
