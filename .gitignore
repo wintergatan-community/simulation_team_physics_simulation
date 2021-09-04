@@ -140,3 +140,7 @@ Backup of *.doc*
 
 # Visio autosave temporary files
 *.~vsd*
+
+# Blender
+*autosave.blend
+quit.blend
