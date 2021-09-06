@@ -15,7 +15,7 @@ try:
 
     import numpy as np
     import matplotlib.pyplot as plt
-    import Wintergatan.Physics.MarblePhysics_OOP as MarblePhysics_OOP
+    import Wintergatan.Physics.MarblePhysics_FP as MarblePhysics_OOP
     import matplotlib.animation as animation
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy and matplotlib package before running.")
