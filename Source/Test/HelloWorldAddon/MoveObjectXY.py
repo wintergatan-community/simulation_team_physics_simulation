@@ -35,7 +35,8 @@ class ObjectMoveXY(bpy.types.Operator):
 
         # The original script
         scene = context.scene
-        for obj in scene.objects:
+        objs = scene.objects
+        for obj in objs:
             obj.location.x += -1.0
             obj.location.y += -2.0
             obj.location.z += 0.5
