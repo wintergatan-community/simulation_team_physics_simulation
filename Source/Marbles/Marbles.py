@@ -8,9 +8,13 @@ Created: August 4 2021
 """
 # Objective
 #1. creating/spawning marbles into blender
+# TODO #10 
+#bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
 #2. applying custom material properties
 #3. creating them as part of one particle system.
 #4. translating them to numpy and back for our physics
+# TODO #11
+#rng = np.random.default_rng(seed=42) # create repeatable random numbers to use in MarbleSpawner
 
 try:
     from dataclasses import dataclass
@@ -41,8 +45,3 @@ class MarbleInfo:
 
     def __len__(self):
         return self.size
-
-# TODO #10 
-# TODO #11
-
-#bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
