@@ -14,8 +14,9 @@ try:
     #os.chdir('../Physics')
 
     import numpy as np
-    import matplotlib.pyplot as plt
+    import matplotlib.pyplot as plt	
     import Wintergatan.Physics.MarblePhysics_OOP as MarblePhysics_OOP
+    import Wintergatan.Physics.MarblePhysics_FP as MarblePhysics_FP
     import matplotlib.animation as animation
 except ModuleNotFoundError:
     print("ERROR: Module not found. Please install the numpy and matplotlib package before running.")
@@ -59,7 +60,7 @@ data=[]
 
 while (curTime<testTime):
     #Update positions
-    particleArray=MarblePhysics_OOP.PhysicsCalc(particleArray,dT)
+    particleArray=MarblePhysics_FP.PhysicsCalc(particleArray,dT)
     #Plot update
     if (int(curTime/dT)%plotFreq==0):
         data.append(particleArray)

@@ -58,14 +58,16 @@ class ObjectMoveXY(bpy.types.Operator):
             obj_x = obj
             obj.location.y += -2.0
             obj.location.z += 0.5
-            print(obj.location)
-            
+
+            print(obj.location)            
             existing_object_coordinates.append([obj.location.x, obj.location.y, obj.location.z])
+            
             print(obj.name)
             #print(obj.type)
             print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
             hw.print_hello_world() # this shows whether the import of a simple file works
             
+
             if obj.name[:4] == 'Cube':
                 
                 marble_x = obj.location.x
@@ -87,7 +89,6 @@ class ObjectMoveXY(bpy.types.Operator):
                 new_cube_2_x = marble_x - 2.0
                 new_cube_2_y = marble_y - 2.0
                 new_cube_2_z = marble_z - 2.0
-                
                 new_cube_coordinates.append([new_cube_2_x, new_cube_2_y, new_cube_2_z])
                 
         for coord_entry in new_sphere_coordinates:
