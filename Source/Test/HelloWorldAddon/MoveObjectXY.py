@@ -41,6 +41,7 @@ class ObjectMoveXY(bpy.types.Operator):
             obj.location.y += -2.0
             obj.location.z += 0.5
             print(obj.name)
+            #print(obj.type)
             print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
             hw.print_hello_world() # this shows whether the import of a simple file works
             
@@ -52,6 +53,9 @@ class ObjectMoveXY(bpy.types.Operator):
                 bpy.data.objects['Cube'].select_set(True)
                 bpy.ops.object.delete()
                 bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(marble_x, marble_y, marble_z), scale=(1, 1, 1))
+                #alternate ways to create sphere
+                #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
                 
                 new_cube_1_x = marble_x + 2.0
                 new_cube_1_y = marble_y + 2.0
@@ -80,6 +84,7 @@ def register():
     bpy.types.VIEW3D_MT_object.append(menu_func)  # Adds the new operator to an existing menu.
 
 def unregister():
+    bpy.types.VIEW3D_MT_object.remove(menu_func)
     bpy.utils.unregister_class(ObjectMoveXY)
 
 
