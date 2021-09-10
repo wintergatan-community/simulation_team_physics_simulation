@@ -43,6 +43,7 @@ class ObjectMoveXY(bpy.types.Operator):
             obj.location.x += -1.0
             obj.location.y += -2.0
             obj.location.z += 0.5
+            print(obj.location)
             print(obj.name)
             #print(obj.type)
             print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
@@ -74,6 +75,7 @@ class ObjectMoveXY(bpy.types.Operator):
         for coord_entry in new_sphere_coordinates:
             
             print('Try to create sphere')
+            print(coord_entry)
             try:
                 bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
                 #alternate ways to create sphere
@@ -84,7 +86,8 @@ class ObjectMoveXY(bpy.types.Operator):
                 
         for coord_entry in new_cube_coordinates:
             
-            print('Try to create sphere')
+            print('Try to create cube')
+            print(coord_entry)
             try:
                 bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
             except:
