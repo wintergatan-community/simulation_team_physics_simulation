@@ -33,6 +33,9 @@ class ObjectMoveXY(bpy.types.Operator):
 
     def execute(self, context):        # execute() is called when running the operator.
 
+        new_sphere_coordinates = []
+        new_cube_coordinates = []
+        
         # The original script
         scene = context.scene
         objs = scene.objects
@@ -50,29 +53,42 @@ class ObjectMoveXY(bpy.types.Operator):
                 marble_x = obj.location.x
                 marble_y = obj.location.y
                 marble_z = obj.location.z
+                
+                new_sphere_coordinates.append([marble_x, marble_y, marble_z])
+                
                 bpy.data.objects['Cube'].select_set(True)
                 bpy.ops.object.delete()
-                bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(marble_x, marble_y, marble_z), scale=(1, 1, 1))
-                #alternate ways to create sphere
-                #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
-                #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
                 
                 new_cube_1_x = marble_x + 2.0
                 new_cube_1_y = marble_y + 2.0
                 new_cube_1_z = marble_z + 2.0
                 
+                new_cube_coordinates.append([new_cube_1_x, new_cube_1_y, new_cube_1_z])
+                
                 new_cube_2_x = marble_x - 2.0
                 new_cube_2_y = marble_y - 2.0
                 new_cube_2_z = marble_z - 2.0
                 
-                try:
-                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(new_cube_1_x, new_cube_1_y, new_cube_1_z), scale=(1, 1, 1))
-                except:
-                    print('space for cube 1 already occupied')
-                try:
-                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(new_cube_2_x, new_cube_2_y, new_cube_2_z), scale=(1, 1, 1))
-                except:
-                    print('space for cube 2 already occupied')
+                new_cube_coordinates.append([new_cube_2_x, new_cube_2_y, new_cube_2_z])
+                
+        for coord_entry in new_sphere_coordinates:
+            
+            print('Try to create sphere')
+            try:
+                bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                #alternate ways to create sphere
+                #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+            except:
+                print('space for sphere already occupied')
+                
+        for coord_entry in new_cube_coordinates:
+            
+            print('Try to create sphere')
+            try:
+                bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+            except:
+                print('space for cube already occupied')
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
