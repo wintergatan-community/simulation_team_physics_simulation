@@ -93,6 +93,7 @@ class ObjectMoveXY(bpy.types.Operator):
         for coord_entry in new_sphere_coordinates:
             
             print('Try to create sphere')
+            print(coord_entry)
             
             if coord_entry  in existing_object_coordinates:
             
@@ -107,6 +108,7 @@ class ObjectMoveXY(bpy.types.Operator):
         for coord_entry in new_cube_coordinates:
             
             print('Try to create cube')
+            print(coord_entry)
             
             if coord_entry not in existing_object_coordinates:
                 
