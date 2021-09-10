@@ -33,6 +33,20 @@ class ObjectMoveXY(bpy.types.Operator):
 
     def execute(self, context):        # execute() is called when running the operator.
 
+        existing_object_coordinates = []
+        
+        scene = context.scene
+        objs = scene.objects
+        for obj in objs:
+            
+            obj_x = obj.location.x -1.0
+            obj_y = obj.location.y -2.0
+            obj_z = obj.location.z + 0.5
+            
+            if obj.name[:10] == 'SurfSphere':
+            
+                existing_object_coordinates.append([obj_x, obj_y, obj_z])
+        
         new_sphere_coordinates = []
         new_cube_coordinates = []
         
@@ -41,9 +55,12 @@ class ObjectMoveXY(bpy.types.Operator):
         objs = scene.objects
         for obj in objs:
             obj.location.x += -1.0
+            obj_x = obj
             obj.location.y += -2.0
             obj.location.z += 0.5
             print(obj.location)
+            
+            existing_object_coordinates.append([obj.location.x, obj.location.y, obj.location.z])
             print(obj.name)
             #print(obj.type)
             print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
@@ -76,23 +93,27 @@ class ObjectMoveXY(bpy.types.Operator):
         for coord_entry in new_sphere_coordinates:
             
             print('Try to create sphere')
-            print(coord_entry)
-            try:
-                bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
-                #alternate ways to create sphere
-                #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
-                #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
-            except:
-                print('space for sphere already occupied')
+            
+            if coord_entry  in existing_object_coordinates:
+            
+                try:
+                    bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                    #alternate ways to create sphere
+                    #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                    #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                except:
+                    print('sphere could not be created')
                 
         for coord_entry in new_cube_coordinates:
             
             print('Try to create cube')
-            print(coord_entry)
-            try:
-                bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
-            except:
-                print('space for cube already occupied')
+            
+            if coord_entry not in existing_object_coordinates:
+                
+                try:
+                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                except:
+                    print('cube could not be created')
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
