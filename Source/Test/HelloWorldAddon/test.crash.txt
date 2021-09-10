@@ -1,0 +1,464 @@
+# Blender 2.93.1, Commit date: 2021-06-22 05:57, Hash 1b8d33b18c2f
+bpy.ops.text.run_script()  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(-1, -2, 0.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(1, 0, 2.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(-3, -4, -1.5), scale=(1, 1, 1))  # Operator
+bpy.ops.object.move_x()  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(0, -2, 3), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(2, 0, 5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(-2, -4, 1), scale=(1, 1, 1))  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(1, -2, 5.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(3, 0, 7.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(-1, -4, 3.5), scale=(1, 1, 1))  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(2, -2, 8), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(4, 0, 10), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(0, -4, 6), scale=(1, 1, 1))  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(3, -2, 10.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(5, 0, 12.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(1, -4, 8.5), scale=(1, 1, 1))  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(4, -2, 13), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(6, 0, 15), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(2, -4, 11), scale=(1, 1, 1))  # Operator
+bpy.ops.object.move_x()  # Operator
+bpy.ops.object.delete()  # Operator
+bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(5, -2, 15.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(7, 0, 17.5), scale=(1, 1, 1))  # Operator
+bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(3, -4, 13.5), scale=(1, 1, 1))  # Operator
+
+# backtrace
+Exception Record:
+
+ExceptionCode         : EXCEPTION_ACCESS_VIOLATION
+Exception Address     : 0x00007FF70BBB1820
+Exception Module      : blender.exe
+Exception Flags       : 0x00000000
+Exception Parameters  : 0x2
+	Parameters[0] : 0x0000000000000000
+	Parameters[1] : 0x0000000000000017
+
+
+Stack trace:
+blender.exe         :0x00007FF70BBB17D0  pyrna_struct_CreatePyObject
+blender.exe         :0x00007FF70BBAA460  pyrna_prop_collection_iter_next
+python39.dll        :0x00007FFD9BC90C40  PyEval_EvalFrameDefault
+python39.dll        :0x00007FFD9BB8F990  PyCFunction_Call
+python39.dll        :0x00007FFD9BB8FAA0  PyFunction_Vectorcall
+blender.exe         :0x00007FF70BBAC1B0  bpy_class_call
+blender.exe         :0x00007FF70BAA5920  rna_operator_execute_cb
+blender.exe         :0x00007FF70B77E3C0  wm_operator_invoke
+blender.exe         :0x00007FF70B77DAE0  wm_operator_call_internal
+blender.exe         :0x00007FF70B777560  WM_operator_name_call_ptr
+blender.exe         :0x00007FF70BEE17B0  ui_apply_but_funcs_after
+blender.exe         :0x00007FF70BEEFD20  ui_popup_handler
+blender.exe         :0x00007FF70B77D070  wm_handlers_do_intern
+blender.exe         :0x00007FF70B77C6E0  wm_handlers_do
+blender.exe         :0x00007FF70B779AE0  wm_event_do_handlers
+blender.exe         :0x00007FF70B764930  WM_main
+blender.exe         :0x00007FF70B421C60  main
+blender.exe         :0x00007FF7101DADA8  __scrt_common_main_seh
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Threads:
+Thread : 00001838
+ntdll.dll           :0x00007FFDEEF10860  ZwWaitForWorkViaWorkerFactory
+ntdll.dll           :0x00007FFDEEEC2680  TpReleaseCleanupGroupMembers
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00001944
+ntdll.dll           :0x00007FFDEEF10860  ZwWaitForWorkViaWorkerFactory
+ntdll.dll           :0x00007FFDEEEC2680  TpReleaseCleanupGroupMembers
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 0000185c
+ntdll.dll           :0x00007FFDEEF10860  ZwWaitForWorkViaWorkerFactory
+ntdll.dll           :0x00007FFDEEEC2680  TpReleaseCleanupGroupMembers
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00003220
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+blender.exe         :0x00007FF70F7DD1A0  IlmThread_2_5::Semaphore::wait
+blender.exe         :0x00007FF70F7DC970  IlmThread_2_5::ThreadPool::numThreads
+blender.exe         :0x00007FF70F7DD610  std::_LaunchPad<std::unique_ptr<std::tuple<void (__cdecl IlmThread_2_5::Thread::*)(void) __ptr64,Il
+blender.exe         :0x00007FF70E31B860  std::_Pad::_Call_func
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 000029b0
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+blender.exe         :0x00007FF70F7DD1A0  IlmThread_2_5::Semaphore::wait
+blender.exe         :0x00007FF70F7DC970  IlmThread_2_5::ThreadPool::numThreads
+blender.exe         :0x00007FF70F7DD610  std::_LaunchPad<std::unique_ptr<std::tuple<void (__cdecl IlmThread_2_5::Thread::*)(void) __ptr64,Il
+blender.exe         :0x00007FF70E31B860  std::_Pad::_Call_func
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00001674
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+blender.exe         :0x00007FF70F7DD1A0  IlmThread_2_5::Semaphore::wait
+blender.exe         :0x00007FF70F7DC970  IlmThread_2_5::ThreadPool::numThreads
+blender.exe         :0x00007FF70F7DD610  std::_LaunchPad<std::unique_ptr<std::tuple<void (__cdecl IlmThread_2_5::Thread::*)(void) __ptr64,Il
+blender.exe         :0x00007FF70E31B860  std::_Pad::_Call_func
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00000f18
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+blender.exe         :0x00007FF70F7DD1A0  IlmThread_2_5::Semaphore::wait
+blender.exe         :0x00007FF70F7DC970  IlmThread_2_5::ThreadPool::numThreads
+blender.exe         :0x00007FF70F7DD610  std::_LaunchPad<std::unique_ptr<std::tuple<void (__cdecl IlmThread_2_5::Thread::*)(void) __ptr64,Il
+blender.exe         :0x00007FF70E31B860  std::_Pad::_Call_func
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00002f0c
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+combase.dll         :0x00007FFDEDFB9D50  RoGetServerActivatableClasses
+combase.dll         :0x00007FFDEDFB9D50  RoGetServerActivatableClasses
+combase.dll         :0x00007FFDEDFB9D50  RoGetServerActivatableClasses
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00002e1c
+ntdll.dll           :0x00007FFDEEF10860  ZwWaitForWorkViaWorkerFactory
+ntdll.dll           :0x00007FFDEEEC2680  TpReleaseCleanupGroupMembers
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00000b68
+ntdll.dll           :0x00007FFDEEF10860  ZwWaitForWorkViaWorkerFactory
+ntdll.dll           :0x00007FFDEEEC2680  TpReleaseCleanupGroupMembers
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00001628
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+ig9icd64.dll        :0x00007FFD7A503EA0  DumpRegistryKeyDefinitions
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00003d60
+ntdll.dll           :0x00007FFDEEF10800  ZwWaitForAlertByThreadId
+ntdll.dll           :0x00007FFDEEED3EF0  RtlSleepConditionVariableSRW
+KERNELBASE.dll      :0x00007FFDEC7ECE00  SleepConditionVariableSRW
+ig9icd64.dll        :0x00007FFD7A4BC6D5  Symbols not available
+
+
+Thread : 00001fc8
+ntdll.dll           :0x00007FFDEEF0DF80  NtAlpcSendWaitReceivePort
+dwmapi.dll          :0x00007FFDEA1C3910  DwmUnregisterThumbnail
+dwmapi.dll          :0x00007FFDEA1C3860  DwmFlush
+ig9icd64.dll        :0x00007FFD7A503EA0  DumpRegistryKeyDefinitions
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00002298
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00000b04
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00002390
+ntdll.dll           :0x00007FFDEEF0CE90  NtWaitForSingleObject
+KERNELBASE.dll      :0x00007FFDEC7A1940  WaitForSingleObjectEx
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+tbb.dll             :0x00007FFDE23236F0  tbb::thread_bound_filter::try_process_item
+ucrtbase.dll        :0x00007FFDECDF1B20  configthreadlocale
+KERNEL32.DLL        :0x00007FFDED997020  BaseThreadInitThunk
+ntdll.dll           :0x00007FFDEEEC2630  RtlUserThreadStart
+
+
+Thread : 00002f60
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll:0x00000000679E9CC0  openblas_read_env
+
+
+Thread : 00000f68
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll:0x00000000679E9CC0  openblas_read_env
+
+
+Thread : 00002a40
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll:0x00000000679E9CC0  openblas_read_env
+
+
+Thread : 00002984
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.3HBPCJB5BPQGKWVZAVEBXNNJ2Q2G3TUP.gfortran-win_amd64.dll:0x0000000064DA3280  openblas_read_env
+
+
+Thread : 00003d44
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.3HBPCJB5BPQGKWVZAVEBXNNJ2Q2G3TUP.gfortran-win_amd64.dll:0x0000000064DA3280  openblas_read_env
+
+
+Thread : 00003464
+ntdll.dll           :0x00007FFDEEF0D960  ZwWaitForMultipleObjects
+KERNELBASE.dll      :0x00007FFDEC7CC9C0  WaitForMultipleObjectsEx
+KERNELBASE.dll      :0x00007FFDEC7CC9A0  WaitForMultipleObjects
+libopenblas.3HBPCJB5BPQGKWVZAVEBXNNJ2Q2G3TUP.gfortran-win_amd64.dll:0x0000000064DA3280  openblas_read_env
+
+
+Loaded Modules :
+0x00007FF70B2F0000 2.9.3.0              blender.exe C:\Program Files\Blender Foundation\Blender 2.93\blender.pdb 
+0x00007FFDEEE70000 10.0.19041.1110      ntdll.dll  
+0x00007FFDED980000 10.0.19041.1151      KERNEL32.DLL  
+0x00007FFDEC780000 10.0.19041.1151      KERNELBASE.dll  
+0x00007FFDEDA40000 10.0.19041.1151      USER32.dll  
+0x00007FFDECA50000 10.0.19041.1151      win32u.dll  
+0x00007FFDE2310000 2020.2.0.0           tbb.dll  
+0x00007FFDECED0000 10.0.19041.746       GDI32.dll  
+0x00007FFDECB70000 10.0.19041.1110      gdi32full.dll  
+0x00007FFDECC80000 10.0.19041.789       msvcp_win.dll  
+0x00007FFDECDD0000 10.0.19041.789       ucrtbase.dll  
+0x00007FFDC76D0000 14.28.29910.0        MSVCP140.dll  
+0x00007FFDE4480000 14.28.29910.0        VCRUNTIME140.dll  
+0x00007FFDE67D0000 14.28.29910.0        VCRUNTIME140_1.dll  
+0x00007FFDED060000 10.0.19041.1151      SHELL32.dll  
+0x00007FFDEC5D0000 10.0.19041.1151      CFGMGR32.dll  
+0x00007FFDEDCC0000 10.0.19041.546       WS2_32.dll  
+0x00007FFDECF30000 10.0.19041.1081      RPCRT4.dll  
+0x00007FFDA8AA0000 8.0.1.0              openvdb.dll  
+0x00007FFDEE680000 10.0.19041.1052      ADVAPI32.dll  
+0x00007FFDEE7A0000 7.0.19041.546        msvcrt.dll  
+0x00007FFDEDDA0000 10.0.19041.906       sechost.dll  
+0x00007FFDED7A0000 10.0.19041.746       ole32.dll  
+0x00007FFDEDEF0000 10.0.19041.1081      combase.dll  
+0x00007FFDEDBE0000 10.0.19041.546       PSAPI.DLL  
+0x00007FFDC09E0000 10.0.19041.1081      OPENGL32.dll  
+0x00007FFDEE730000 10.0.19041.1023      SHLWAPI.dll  
+0x00007FFDECF00000 10.0.19041.546       IMM32.dll  
+0x00007FFD9BA60000 3.9.2150.1013        python39.dll  
+0x00007FFD847F0000 58.54.100.0          avcodec-58.dll  
+0x00007FFD9B720000 58.29.100.0          avformat-58.dll  
+0x00007FFDE22E0000 58.8.100.0           avdevice-58.dll  
+0x00007FFDBF390000 56.31.100.0          avutil-56.dll  
+0x00007FFDEC5A0000 10.0.19041.1023      bcrypt.dll  
+0x00007FFDEDBF0000 10.0.19041.985       OLEAUT32.dll  
+0x00007FFDBEED0000 5.5.100.0            swscale-5.dll  
+0x0000000070440000 1.0.28.0             libsndfile-1.dll  
+0x00007FFDBBCD0000 1.20.1.0             OpenAL32.dll  
+0x00007FFDBAC50000 2.0.12.0             SDL2.dll  
+0x00007FFDEE930000 10.0.19041.1151      SETUPAPI.dll  
+0x000000006ACC0000                      libgmp-10.dll  
+0x00007FFDE4520000 2020.2.0.0           tbbmalloc_proxy.dll  
+0x00007FFDE2020000 10.0.19041.1         AVIFIL32.dll  
+0x00007FFDD6A40000 6.10.19041.1110      COMCTL32.dll  
+0x00007FFDEB300000 10.0.19041.546       VERSION.dll  
+0x00007FFDE0FA0000 10.0.19041.1081      GLU32.dll  
+0x00007FFDE6C30000 10.0.19041.867       dbghelp.dll  
+0x0000000070680000                      libfftw3-3.dll  
+0x00007FFDE0E50000 3.5.100.0            swresample-3.dll  
+0x00007FFDEB360000 10.0.19041.546       Secur32.dll  
+0x00007FFDE2190000 10.0.19041.1         AVICAP32.dll  
+0x00007FFDCF6D0000 10.0.19041.546       WINMM.dll  
+0x00007FFDCDBE0000 2020.2.0.0           tbbmalloc.dll  
+0x00007FFDDFB90000 10.0.19041.1         MSVFW32.dll  
+0x00007FFDDE920000 10.0.19041.1         MSACM32.dll  
+0x00007FFDDEA20000 10.0.19041.1         winmmbase.dll  
+0x00007FFDEC460000 10.0.19041.906       SSPICLI.DLL  
+0x00007FFDEDE40000 10.0.19041.1023      shcore.dll  
+0x00007FFDEA3A0000 10.0.19041.546       kernel.appcore.dll  
+0x00007FFDEA5A0000 10.0.19041.1151      windows.storage.dll  
+0x00007FFDEC000000 10.0.19041.662       Wldp.dll  
+0x00007FFDE5FC0000 10.0.19041.1081      uxtheme.dll  
+0x00007FFDECAE0000 10.0.19041.1023      bcryptPrimitives.dll  
+0x00007FFDEC4E0000 10.0.19041.844       profapi.dll  
+0x0000018C1E430000 2001.12.10941.16384  clbcatq.dll  
+0x00007FFDDFF70000 10.0.19041.1023      MMDevApi.dll  
+0x00007FFDEC340000 10.0.19041.1151      DEVOBJ.dll  
+0x00007FFDBD960000 10.0.19041.1023      AUDIOSES.DLL  
+0x00007FFDEBB70000 10.0.19041.546       powrprof.dll  
+0x00007FFDEB9E0000                      UMPDC.dll  
+0x00007FFDEE2D0000 10.0.19041.1081      MSCTF.dll  
+0x00007FFDD5BC0000 10.0.19041.1151      dataexchange.dll  
+0x00007FFDE53C0000 10.0.19041.1023      dcomp.dll  
+0x00007FFDE4A30000 10.0.19041.746       d3d11.dll  
+0x00007FFDEAD90000 10.0.19041.964       dxgi.dll  
+0x00007FFDE19C0000 10.0.19041.964       twinapi.appcore.dll  
+0x00007FFDE1CF0000 10.0.19041.1110      AppXDeploymentClient.dll  
+0x00007FFD79FB0000 27.20.100.8854       ig9icd64.dll  
+0x00007FFDEA1C0000 10.0.19041.746       dwmapi.dll  
+0x00007FFDDAEE0000 27.20.100.8854       igdgmm64.dll  
+0x00007FFDD80B0000 27.20.100.8854       igc64.dll  
+0x00007FFD97BB0000 27.20.100.8854       igdml64.dll  
+0x00007FFDDF7B0000 10.0.19041.1151      textinputframework.dll  
+0x00007FFDE5930000 10.0.19041.546       CoreUIComponents.dll  
+0x00007FFDE5C90000 10.0.19041.746       CoreMessaging.dll  
+0x00007FFDEB190000 10.0.19041.546       ntmarta.dll  
+0x00007FFDE5260000 10.0.19041.1081      wintypes.dll  
+0x00007FFDB8120000 10.0.19041.1023      explorerframe.dll  
+0x00007FFDE6A00000 7.0.19041.1023       propsys.dll  
+0x00007FFDEBF50000 10.0.19041.546       CRYPTSP.dll  
+0x00007FFDEB670000 10.0.19041.1052      rsaenh.dll  
+0x00007FFDEBF70000 10.0.19041.546       CRYPTBASE.dll  
+0x00007FFDE1FC0000 3.9.2150.1013        python3.DLL  
+0x00007FFDDF720000 3.9.2150.1013        _ctypes.pyd  
+0x00007FFDE1F70000                      libffi-7.dll  
+0x0000000067780000                      libopenblas.XWYDX2IKJW2NMTWSFYNGFUWKQU3LYTCZ.gfortran-win_amd64.dll  
+0x00007FFD978B0000                      _multiarray_umath.cp39-win_amd64.pyd  
+0x00007FFDE12D0000                      _multiarray_tests.cp39-win_amd64.pyd  
+0x00007FFDDF360000 3.9.2150.1013        _socket.pyd  
+0x00007FFDEBA00000 10.0.19041.546       IPHLPAPI.DLL  
+0x00007FFDE1810000 3.9.2150.1013        select.pyd  
+0x00007FFDDF350000                      lapack_lite.cp39-win_amd64.pyd  
+0x00007FFDD7E40000                      _umath_linalg.cp39-win_amd64.pyd  
+0x00007FFDDF1E0000                      _pocketfft_internal.cp39-win_amd64.pyd  
+0x00007FFDA9B20000                      mtrand.cp39-win_amd64.pyd  
+0x00007FFDD6290000                      bit_generator.cp39-win_amd64.pyd  
+0x00007FFDBF350000                      _common.cp39-win_amd64.pyd  
+0x00007FFDDEAE0000 3.9.2150.1013        _hashlib.pyd  
+0x00007FFD96D70000 1.1.1.9              libcrypto-1_1.dll  
+0x00007FFDB78E0000                      _bounded_integers.cp39-win_amd64.pyd  
+0x00007FFDDE800000                      _mt19937.cp39-win_amd64.pyd  
+0x00007FFDD5180000                      _philox.cp39-win_amd64.pyd  
+0x00007FFDCDB70000                      _pcg64.cp39-win_amd64.pyd  
+0x00007FFDCCD20000                      _sfc64.cp39-win_amd64.pyd  
+0x00007FFDA0460000                      _generator.cp39-win_amd64.pyd  
+0x00000000620C0000                      libansari.R6EA3HQP5KZ6TAXU4Y4ZVTRPT7UVA53Z.gfortran-win_amd64.dll  
+0x000000006A840000                      libbanded5x.2OH54T7PXCLH7KMZFQXI6WES7W3O7LED.gfortran-win_amd64.dll  
+0x0000000064B40000                      libopenblas.3HBPCJB5BPQGKWVZAVEBXNNJ2Q2G3TUP.gfortran-win_amd64.dll  
+0x000000006E000000                      libbispeu.7AH3PCQ2E2NGLC3AQD7FFAH73KGJTZCJ.gfortran-win_amd64.dll  
+0x0000000062EC0000                      libblkdta00.U3WFDJYB5WYSGKORFSSHUNTRX7V2Z2VV.gfortran-win_amd64.dll  
+0x00000000003F0000                      libchkder.G7WSOGIYYQO3UWFVEZ3PPXCXR53ADVPA.gfortran-win_amd64.dll  
+0x000000006ED40000                      libcobyla2.25EVUSEBAW7VKISARB7LO3UGZPN2HXE3.gfortran-win_amd64.dll  
+0x0000000000440000                      libdcsrch.I2AOPDCXAPDRFNPWY55H5UE7XZSU5CVN.gfortran-win_amd64.dll  
+0x000000006EA00000                      libdet.EKUAXLYVHZQOA5G4E5KIRYYJQNYR2J4N.gfortran-win_amd64.dll  
+0x0000000063B40000                      libdfft.XZOWIJVVJZK32K7HPCGZE6Q5VRRIIWJB.gfortran-win_amd64.dll  
+0x0000000062340000                      libdfitpack.VPRJUWUEP6U577QBCGTTCCFXB3222T4I.gfortran-win_amd64.dll  
+0x0000000070CC0000                      libdgamln.CZTINISBCDTLGBMBTRNYIIWHW2OV7UR6.gfortran-win_amd64.dll  
+0x000000006B0C0000                      libdqag.3G7J62LSENLDBQSO67YHUS52MMNE4VNI.gfortran-win_amd64.dll  
+0x0000000066A40000                      libd_odr.55PVP6CS22RRDQITMCA3VOMCRKXEDK4U.gfortran-win_amd64.dll  
+0x0000000000460000                      libgetbreak.CC22I3PMZL7Q2SY6UXVEZCXW2SOZ5UIR.gfortran-win_amd64.dll  
+0x000000006F8C0000                      liblbfgsb.67WJ5M3SE4XLKEW3E5O74DBLXYX6JOGE.gfortran-win_amd64.dll  
+0x00000000004C0000                      liblsoda-f2.SZMBZ5QLAJRFSXG5K2ZEUPKJE7PLPMHP.gfortran-win_amd64.dll  
+0x000000006B7C0000                      libmvndst.RDHNECQ4LTGAG44TTDYZZ5ZBHXLFUU6E.gfortran-win_amd64.dll  
+0x000000006A5C0000                      libnnls.4HUTGAJQTI623WTX372VAIIWXRLC62YU.gfortran-win_amd64.dll  
+0x0000000061300000                      libslsqp_op.RGGN6ZOFD2K47X7YRNDYCM7JFP4AGLER.gfortran-win_amd64.dll  
+0x0000000000570000                      libspecfun.LQCTHMCYNULEOOGKIO6AGREE6D6V37RU.gfortran-win_amd64.dll  
+0x00000000006D0000                      libvode-f2p.5S5OT43YAB3RWB4DIZE6APB5L264W6M7.gfortran-win_amd64.dll  
+0x000000006E3C0000                      libwrap_dum.JPBLOQR3B5CQPVSMGPNO7DONCQDBALXS.gfortran-win_amd64.dll  
+0x00000000641C0000                      libwrap_dum.OFSKFOUYYO563J6M6E5RWKHMPNW3HB2V.gfortran-win_amd64.dll  
+0x0000000064380000                      lib_arpack-.OUTLRC34XR23CPDVNJC4LNEGP6P7X7RZ.gfortran-win_amd64.dll  
+0x0000000061CC0000                      lib_blas_su.YRKGGVTYTJAYNBJNOGROZCFCCMKD2AB4.gfortran-win_amd64.dll  
+0x000000006D500000                      lib_dop-f2p.3HWIZKD75YUXVW7GYVDBE4FCDUO4NUKG.gfortran-win_amd64.dll  
+0x00000000007B0000                      lib_test_fo.JF5HTWMUPBXWGAYEBVEJU3OZAHTSVKCT.gfortran-win_amd64.dll  
+0x00007FFDA96C0000 14.0.24210.0         msvcp140.dll  
+0x00007FFDC77C0000                      _ccallback_c.cp39-win_amd64.pyd  
+0x00007FFD984F0000                      _ufuncs.cp39-win_amd64.pyd  
+0x00007FFDC76B0000                      _ufuncs_cxx.cp39-win_amd64.pyd  
+0x00007FFDC7260000                      specfun.cp39-win_amd64.pyd  
+0x00007FFD96CD0000                      _fblas.cp39-win_amd64.pyd  
+0x00007FFD96AF0000                      _flapack.cp39-win_amd64.pyd  
+0x00007FFDC6CA0000                      _flinalg.cp39-win_amd64.pyd  
+0x00007FFDB0FC0000                      _solve_toeplitz.cp39-win_amd64.pyd  
+0x00007FFDBABC0000                      _matfuncs_sqrtm_triu.cp39-win_amd64.pyd  
+0x00007FFDB0F80000                      _decomp_update.cp39-win_amd64.pyd  
+0x00007FFDAA470000                      cython_blas.cp39-win_amd64.pyd  
+0x00007FFD96A50000                      cython_lapack.cp39-win_amd64.pyd  
+0x00007FFD967F0000                      _sparsetools.cp39-win_amd64.pyd  
+0x00007FFDA9AA0000                      _csparsetools.cp39-win_amd64.pyd  
+0x00007FFDA8A40000                      _shortest_path.cp39-win_amd64.pyd  
+0x00007FFDA3D50000                      _tools.cp39-win_amd64.pyd  
+0x00007FFDA3D20000                      _traversal.cp39-win_amd64.pyd  
+0x00007FFDA2A20000                      _min_spanning_tree.cp39-win_amd64.pyd  
+0x00007FFDA03C0000                      _flow.cp39-win_amd64.pyd  
+0x00007FFD9B6E0000                      _matching.cp39-win_amd64.pyd  
+0x00007FFD98CD0000                      _reordering.cp39-win_amd64.pyd  
+0x00007FFDD7DF0000                      _comb.cp39-win_amd64.pyd  
+0x00007FFDC4AE0000                      _ellip_harm_2.cp39-win_amd64.pyd  
+0x00007FFDD77B0000                      _odepack.cp39-win_amd64.pyd  
+0x00007FFDD6F40000                      _quadpack.cp39-win_amd64.pyd  
+0x00007FFDBEE70000                      vode.cp39-win_amd64.pyd  
+0x00007FFDBEDA0000                      _dop.cp39-win_amd64.pyd  
+0x00007FFDD62E0000                      lsoda.cp39-win_amd64.pyd  
+0x00007FFDA0150000                      _iterative.cp39-win_amd64.pyd  
+0x00007FFD967A0000                      _superlu.cp39-win_amd64.pyd  
+0x00007FFD9FAF0000                      _arpack.cp39-win_amd64.pyd  
+0x00007FFDCDA80000                      minpack2.cp39-win_amd64.pyd  
+0x00007FFDBBCB0000                      _group_columns.cp39-win_amd64.pyd  
+0x00007FFD96750000                      _trlib.cp39-win_amd64.pyd  
+0x00007FFDCB2C0000                      messagestream.cp39-win_amd64.pyd  
+0x00007FFDAA450000 3.9.2150.1013        _bz2.pyd  
+0x00007FFD9F350000 3.9.2150.1013        _lzma.pyd  
+0x00007FFDCB200000                      _lbfgsb.cp39-win_amd64.pyd  
+0x00007FFDA8A20000                      moduleTNC.cp39-win_amd64.pyd  
+0x00007FFDCA570000                      _cobyla.cp39-win_amd64.pyd  
+0x00007FFDC9B60000                      _slsqp.cp39-win_amd64.pyd  
+0x00007FFDC9710000                      _minpack.cp39-win_amd64.pyd  
+0x00007FFD98950000                      givens_elimination.cp39-win_amd64.pyd  
+0x00007FFDC94B0000                      _zeros.cp39-win_amd64.pyd  
+0x00007FFDC9120000                      __nnls.cp39-win_amd64.pyd  
+0x00007FFD965D0000                      _highs_wrapper.cp39-win_amd64.pyd  
+0x00007FFDC7C20000                      _highs_constants.cp39-win_amd64.pyd  
+0x00007FFD980E0000                      _interpolative.cp39-win_amd64.pyd  
+0x00007FFD96590000                      _bglu_dense.cp39-win_amd64.pyd  
+0x00007FFDC7980000                      _lsap_module.cp39-win_amd64.pyd  
+0x00007FFD96500000                      ckdtree.cp39-win_amd64.pyd  
+0x00007FFD96090000                      qhull.cp39-win_amd64.pyd  
+0x00007FFD964D0000                      _voronoi.cp39-win_amd64.pyd  
+0x00007FFD96060000                      _distance_wrap.cp39-win_amd64.pyd  
+0x00007FFD96030000                      _hausdorff.cp39-win_amd64.pyd  
+0x00007FFD95FF0000                      _distance_pybind.cp39-win_amd64.pyd  
+0x00007FFD95F70000                      rotation.cp39-win_amd64.pyd  
+
+# Python backtrace
+  File "C:\Users\marga\Wintergatan_git\simulation_team_physics_simulation\Source\Test\test.blend\MoveObjectXY.py", line 38 in execute
