@@ -141,9 +141,8 @@ class MMXPhysics:
                          method='Radau')
 
 
-if __name__ == "__main__":
-    animation=True
-    tstart=time.time()
+#Function to run a test problem. Returns a tuple of x, y, and z position arrays.
+def run_test_problem():
     marblelayout = [4,4,1] # x,y,z initial layout for test case marbles. Note z is not used currently
     n_marbles = np.prod(marblelayout)
     radius = 10
@@ -175,6 +174,14 @@ if __name__ == "__main__":
     # Visualise the results.
     result = np.reshape(solution.y, (6, n_marbles, -1))
     x, y, z = result[0:3, :, :]
+    
+    return (x,y,z)
+
+if __name__ == "__main__":
+    animation=True
+    tstart=time.time()
+    
+    (x,y,z)=run_test_problem()
     
     if animation:
         try:
