@@ -48,3 +48,12 @@ class MarbleInfo:
 
     def __len__(self):
         return self.size
+
+#bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(0, 0, 0), scale=(1, 1, 1))
+#bpy.context.space_data.context = 'MATERIAL'
+#bpy.context.scene.matlib.mat_index = 20
+#bpy.ops.object.make_local(type='SELECT_OBDATA_MATERIAL')
+#bpy.ops.mesh.primitive_uv_sphere_add(radius=0.015, enter_editmode=False, align='WORLD', location=(0.03, 0.03, 0.03), scale=(1, 1, 1))
+#bpy.context.space_data.context = 'PARTICLES'
+#bpy.ops.object.particle_system_add()
+#bpy.data.particles["ParticleSettings"].emit_from = 'VOLUME'
