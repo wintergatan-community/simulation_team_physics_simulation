@@ -32,6 +32,9 @@ class ObjectMoveXY(bpy.types.Operator):
     bl_options = {'REGISTER', 'UNDO'}  # Enable undo for the operator.
 
     def execute(self, context):        # execute() is called when running the operator.
+        
+        # Deselcting all objects
+        bpy.ops.object.select_all(action='DESELECT')
 
         existing_object_coordinates = []
         
@@ -59,8 +62,7 @@ class ObjectMoveXY(bpy.types.Operator):
             obj.location.y += -2.0
             obj.location.z += 0.5
 
-            print(obj.location)            
-            existing_object_coordinates.append([obj.location.x, obj.location.y, obj.location.z])
+            print(obj.location)
             
             print(obj.name)
             #print(obj.type)
@@ -76,10 +78,6 @@ class ObjectMoveXY(bpy.types.Operator):
                 
                 new_sphere_coordinates.append([marble_x, marble_y, marble_z])
                 
-                #bpy.data.objects.remove(obj)
-                bpy.data.objects[obj.name].select_set(True)
-                bpy.ops.object.delete()
-                
                 new_cube_1_x = marble_x + 2.0
                 new_cube_1_y = marble_y + 2.0
                 new_cube_1_z = marble_z + 2.0
@@ -90,21 +88,11 @@ class ObjectMoveXY(bpy.types.Operator):
                 new_cube_2_y = marble_y - 2.0
                 new_cube_2_z = marble_z - 2.0
                 new_cube_coordinates.append([new_cube_2_x, new_cube_2_y, new_cube_2_z])
-                
-        for coord_entry in new_sphere_coordinates:
-            
-            print('Try to create sphere')
-            print(coord_entry)
-            
-            if coord_entry  in existing_object_coordinates:
-            
-                try:
-                    bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
-                    #alternate ways to create sphere
-                    #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
-                    #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
-                except:
-                    print('sphere could not be created')
+                                
+                #bpy.data.objects.remove(obj)
+                bpy.data.objects
+                bpy.data.objects[obj.name].select_set(True)
+                bpy.ops.object.delete()
                 
         for coord_entry in new_cube_coordinates:
             
@@ -117,6 +105,27 @@ class ObjectMoveXY(bpy.types.Operator):
                     bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
                 except:
                     print('cube could not be created')
+                    
+            else:
+                print('failed to create cube as space already occupied')
+                
+        for coord_entry in new_sphere_coordinates:
+            
+            print('Try to create sphere')
+            print(coord_entry)
+            
+            if coord_entry not in existing_object_coordinates:
+            
+                try:
+                    bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                    #alternate ways to create sphere
+                    #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                    #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                except:
+                    print('sphere could not be created')
+                    
+            else:
+                print('failed to create sphere as space already occupied')
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
