@@ -94,21 +94,6 @@ class ObjectMoveXY(bpy.types.Operator):
                 bpy.data.objects[obj.name].select_set(True)
                 bpy.ops.object.delete()
                 
-        for coord_entry in new_cube_coordinates:
-            
-            print('Try to create cube')
-            print(coord_entry)
-            
-            if coord_entry not in existing_object_coordinates:
-                
-                try:
-                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
-                except:
-                    print('cube could not be created')
-                    
-            else:
-                print('failed to create cube as space already occupied')
-                
         for coord_entry in new_sphere_coordinates:
             
             print('Try to create sphere')
@@ -126,6 +111,21 @@ class ObjectMoveXY(bpy.types.Operator):
                     
             else:
                 print('failed to create sphere as space already occupied')
+                
+        for coord_entry in new_cube_coordinates:
+            
+            print('Try to create cube')
+            print(coord_entry)
+            
+            if coord_entry not in existing_object_coordinates:
+                
+                try:
+                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                except:
+                    print('cube could not be created')
+                    
+            else:
+                print('failed to create cube as space already occupied')
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
