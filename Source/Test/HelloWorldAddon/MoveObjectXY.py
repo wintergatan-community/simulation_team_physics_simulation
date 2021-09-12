@@ -74,25 +74,104 @@ class ObjectMoveXY(bpy.types.Operator):
                 
                 marble_x = obj.location.x
                 marble_y = obj.location.y
-                marble_z = obj.location.z
+                marble_z = obj.location.z                
+                new_marble_coord = [marble_x, marble_y, marble_z]
                 
-                new_sphere_coordinates.append([marble_x, marble_y, marble_z])
+                if new_marble_coord not in new_sphere_coordinates:
+                
+                    new_sphere_coordinates.append([marble_x, marble_y, marble_z])
                 
                 new_cube_1_x = marble_x + 2.0
                 new_cube_1_y = marble_y + 2.0
-                new_cube_1_z = marble_z + 2.0
+                new_cube_1_z = marble_z + 2.0                
+                new_cube_1_coord = [new_cube_1_x, new_cube_1_y, new_cube_1_z]
                 
-                new_cube_coordinates.append([new_cube_1_x, new_cube_1_y, new_cube_1_z])
+                if new_cube_1_coord not in new_cube_coordinates:
+                
+                    new_cube_coordinates.append(new_cube_1_coord)
                 
                 new_cube_2_x = marble_x - 2.0
                 new_cube_2_y = marble_y - 2.0
                 new_cube_2_z = marble_z - 2.0
-                new_cube_coordinates.append([new_cube_2_x, new_cube_2_y, new_cube_2_z])
+                new_cube_2_coord = [new_cube_2_x, new_cube_2_y, new_cube_2_z]
+                
+                if new_cube_2_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_2_coord)
+                
+                new_cube_3_x = marble_x + 2.0
+                new_cube_3_y = marble_y - 2.0
+                new_cube_3_z = marble_z - 2.0
+                new_cube_3_coord = [new_cube_3_x, new_cube_3_y, new_cube_3_z]             
+                
+                if new_cube_3_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_3_coord)
+                
+                new_cube_4_x = marble_x - 2.0
+                new_cube_4_y = marble_y + 2.0
+                new_cube_4_z = marble_z - 2.0
+                new_cube_4_coord = [new_cube_4_x, new_cube_4_y, new_cube_4_z]             
+                
+                if new_cube_4_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_4_coord)
+                
+                new_cube_5_x = marble_x + 2.0
+                new_cube_5_y = marble_y + 2.0
+                new_cube_5_z = marble_z - 2.0
+                new_cube_5_coord = [new_cube_5_x, new_cube_5_y, new_cube_5_z]             
+                
+                if new_cube_5_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_5_coord)
+                
+                new_cube_6_x = marble_x - 2.0
+                new_cube_6_y = marble_y + 2.0
+                new_cube_6_z = marble_z + 2.0
+                new_cube_6_coord = [new_cube_6_x, new_cube_6_y, new_cube_6_z]             
+                
+                if new_cube_6_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_6_coord)
+                
+                new_cube_7_x = marble_x - 2.0
+                new_cube_7_y = marble_y - 2.0
+                new_cube_7_z = marble_z + 2.0
+                new_cube_7_coord = [new_cube_7_x, new_cube_7_y, new_cube_7_z]             
+                
+                if new_cube_7_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_7_coord)
+                
+                new_cube_8_x = marble_x + 2.0
+                new_cube_8_y = marble_y - 2.0
+                new_cube_8_z = marble_z + 2.0
+                new_cube_8_coord = [new_cube_8_x, new_cube_8_y, new_cube_8_z]             
+                
+                if new_cube_8_coord not in new_cube_coordinates:
+                    
+                    new_cube_coordinates.append(new_cube_8_coord)
                                 
                 #bpy.data.objects.remove(obj)
                 bpy.data.objects
                 bpy.data.objects[obj.name].select_set(True)
                 bpy.ops.object.delete()
+                
+        for coord_entry in new_cube_coordinates:
+            
+            print('Try to create cube')
+            print(coord_entry)
+            
+            if coord_entry not in existing_object_coordinates:
+                
+                try:
+                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                except:
+                    print('cube could not be created')
+                    
+            else:
+                print('failed to create cube as space already occupied')
                 
         for coord_entry in new_sphere_coordinates:
             
@@ -111,21 +190,6 @@ class ObjectMoveXY(bpy.types.Operator):
                     
             else:
                 print('failed to create sphere as space already occupied')
-                
-        for coord_entry in new_cube_coordinates:
-            
-            print('Try to create cube')
-            print(coord_entry)
-            
-            if coord_entry not in existing_object_coordinates:
-                
-                try:
-                    bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
-                except:
-                    print('cube could not be created')
-                    
-            else:
-                print('failed to create cube as space already occupied')
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
@@ -145,3 +209,4 @@ def unregister():
 # to test the add-on without having to install it.
 if __name__ == "__main__":
     register()
+	
