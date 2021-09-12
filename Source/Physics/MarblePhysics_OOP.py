@@ -181,8 +181,11 @@ def run_test_problem(t_end=0.4,marblelayout=[4,4,1]):
 if __name__ == "__main__":
     animation=True
     tstart=time.time()
-    
-    (x,y,z,radius,nsteps)=run_test_problem()
+    marblelayout=[4,4,1]
+
+    (x,y,z,radius,nsteps)=run_test_problem(t_end=0.4,marblelayout=marblelayout)
+    n_marbles = np.prod(marblelayout)
+    print("{",x,"}{",y,"}{",z,"}{",radius,"}{",nsteps,"}{",n_marbles,"}")
     
     if animation:
         try:
@@ -202,7 +205,7 @@ if __name__ == "__main__":
         def update_spheres(num, data, surfs):
             for i in range(n_marbles):
                 surfs[i].remove()
-                surfs[i] = ax.plot_surface(px+result[0,i,num], py+result[1,i,num], pz+result[2,i,num], color='grey')
+                surfs[i] = ax.plot_surface(px+x[i,num], py+y[i,num], pz+z[i,num], color='grey')
         
         # Attaching 3D axis to the figure
         fig = plt.figure()
@@ -210,7 +213,7 @@ if __name__ == "__main__":
         
         spheres=[]
         for i in range(n_marbles):
-            spheres.append(ax.plot_surface(px+result[0,i,0], py+result[1,i,0], pz+result[2,i,0], color='grey'))
+            spheres.append(ax.plot_surface(px+x[i,0], py+y[i,0], pz+z[i,0], color='grey'))
 
         # Setting the axes properties
         ax.set_xlim3d([-50, 150])
@@ -225,7 +228,7 @@ if __name__ == "__main__":
         ax.set_title('3D Test')
         
         # Creating the Animation object
-        line_ani = animation.FuncAnimation(fig, update_spheres, result.shape[2], fargs=(result, spheres), interval=5)
+        line_ani = animation.FuncAnimation(fig, update_spheres, nsteps, fargs=([x,y,z], spheres), interval=5)
         
         plt.show()
     else:
