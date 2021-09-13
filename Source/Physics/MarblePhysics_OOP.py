@@ -161,6 +161,7 @@ def run_test_problem(t_end=0.4,marblelayout=[4,4,1]):
     # give random horizontal velocity with 0 vertical component
     velocities = 600*(np.random.random((3, n_marbles)) - 0.5)
     velocities[2, :] = np.zeros(n_marbles)
+    print(velocities)
 
     # Initialize Simulation
     tsolver=time.time()
