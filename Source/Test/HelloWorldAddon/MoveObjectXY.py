@@ -180,9 +180,9 @@ class ObjectMoveXY(bpy.types.Operator):
             if coord_entry not in existing_object_coordinates:
             
                 try:
-                    bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1, 1, 1))
+                    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), rotation=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0))
                     #alternate ways to create sphere
-                    #bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
+                    #bpy.ops.surface.primitive_nurbs_surface_sphere_add(radius=1, enter_editmode=False, align='WORLD', location=(coord_entry[0], coord_entry[1], coord_entry[2]), scale=(1.0, 1.0, 1.0))
                     #bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=1.0, calc_uvs=True, enter_editmode=False, align='WORLD', location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0), scale=(0.0, 0.0, 0.0))
                 except:
                     print('sphere could not be created')
