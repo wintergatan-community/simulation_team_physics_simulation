@@ -69,6 +69,7 @@ class ObjectMoveXY(bpy.types.Operator):
             print(os.path.realpath(__file__)) # this shows that the file *seems* to be saved at another location, that's why the relative paths didn't work 
             hw.print_hello_world() # this shows whether the import of a simple file works
             
+
             if obj.name[:4] == 'Cube':
                 
                 marble_x = obj.location.x
@@ -192,10 +193,27 @@ class ObjectMoveXY(bpy.types.Operator):
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
+def init_setup():
+    # initial settings for operation
+    # Create a particle system for all the objects to be added on to for reference
+    #The process for working with standard particles is:
+    #Create the mesh which will emit the particles.
+    #Create one or more Particle Systems to emit from the mesh. Many times, multiple particle systems interact or merge with each other to achieve the overall desired effect.
+    #Tailor each Particle System’s settings to achieve the desired effect.
+    #Animate the base mesh and other particle meshes involved in the scene.
+    #Define and shape the path and flow of the particles.
+    #For Hair particle systems: Sculpt the emitter’s flow (cut the hair to length and comb it for example).
+    #Make final render and do physics simulation(s), and tweak as needed.
+    #bpy.context.space_data.context = 'PARTICLES'
+    #bpy.ops.object.particle_system_add()
+    #bpy.data.particles["ParticleSettings"].emit_from = 'VOLUME'
+    return
+
 def menu_func(self, context):
     self.layout.operator(ObjectMoveXY.bl_idname)
 
 def register():
+    init_setup()
     bpy.utils.register_class(ObjectMoveXY)
     bpy.types.VIEW3D_MT_object.append(menu_func)  # Adds the new operator to an existing menu.
 
