@@ -12,7 +12,7 @@ import bpy
 import sys
 import os
 import numpy as np
-import Wintergatan.Physics.MarblePhysics_OOP as MPOOP
+import Wintergatan.Physics.MarblePhysics_OOP as MP
 
 # customise path
 #sys.path.append('C:/Users/marga/Wintergatan_git/simulation_team_physics_simulation/Source/Physics')
@@ -43,7 +43,7 @@ class DisplayFrame(bpy.types.Operator):
         marble_depth = 1
         n_mables = x_marbles*y_marbles*marble_depth
         
-        physics_output = MPOOP.run_test_problem(0.4, [x_marbles, y_marbles, marble_depth])
+        physics_output = MP.run_test_problem(0.4, [x_marbles, y_marbles, marble_depth])
         x_coordinates, y_coordinates, z_coordinates, marble_radius, nsteps = physics_output
         
 
