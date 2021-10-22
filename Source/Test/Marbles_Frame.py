@@ -52,6 +52,13 @@ class DisplayFrame(bpy.types.Operator):
         # Deselcting all objects
         bpy.ops.object.select_all(action='DESELECT')
         
+        # need to move deletion out of display frame
+        for obj in objs:
+
+            bpy.data.objects
+            bpy.data.objects[obj.name].select_set(True)
+            bpy.ops.object.delete()
+        
         dispFrame(self, context)
 
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
@@ -67,12 +74,6 @@ def dispFrame(self, context):
 
     if (nsteps < 1):
         return
-    
-    for obj in objs:
-
-        bpy.data.objects
-        bpy.data.objects[obj.name].select_set(True)
-        bpy.ops.object.delete()
     
     for i in range(DisplayFrame.nMarbles):
         print('n = ' + str(i))
