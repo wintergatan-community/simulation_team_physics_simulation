@@ -49,6 +49,8 @@ class DisplayFrame(bpy.types.Operator):
     # execute() is called when running the operator.
     def execute(self, context): 
         
+        scene = context.scene
+        objs = scene.objects
         # Deselcting all objects
         bpy.ops.object.select_all(action='DESELECT')
         
@@ -64,8 +66,8 @@ class DisplayFrame(bpy.types.Operator):
         return {'FINISHED'}            # Lets Blender know the operator finished successfully.
 
 def dispFrame(self, context):
-    scene = context.scene
-    objs = scene.objects
+    #scene = context.scene
+    #objs = scene.objects
 
     print(DisplayFrame.selected_frame)
     print(DisplayFrame.physics_output)
@@ -84,6 +86,7 @@ def dispFrame(self, context):
         try:
             bpy.ops.mesh.primitive_uv_sphere_add(segments=32, ring_count=16, radius=marble_radius, calc_uvs=True, enter_editmode=False, align='WORLD', location=(x_coordinates[i][DisplayFrame.selected_frame], y_coordinates[i][DisplayFrame.selected_frame], z_coordinates[i][DisplayFrame.selected_frame]), rotation=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0))
             #bpy.ops.mesh.primitive_cube_add(enter_editmode=False, align='WORLD', location=(x_coordinates[i][selected_fame], y_coordinates[i][selected_fame], z_coordinates[i][selected_fame]), scale=(1, 1, 1))
+            #bpy.data.materials["Material"].node_tree.nodes["Principled BSDF"].inputs[0].default_value = (0, 0.8, 0.8, 1)
         except:
             print('marble could not be created')
     return
